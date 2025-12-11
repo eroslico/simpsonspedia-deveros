@@ -60,11 +60,11 @@ export function EpisodeModal({ episode, onClose }: EpisodeModalProps) {
           <div className="absolute bottom-4 left-4 flex items-center gap-2">
             <Badge className="bg-primary text-primary-foreground font-heading text-sm px-3 py-1 shadow-lg">
               <Tv className="w-4 h-4 mr-1" />
-              Temporada {episode.season}
+              Season {episode.season}
             </Badge>
             <Badge className="bg-secondary text-secondary-foreground font-heading text-sm px-3 py-1 shadow-lg">
               <Hash className="w-4 h-4 mr-1" />
-              Episodio {episode.episode}
+              Episode {episode.episode}
             </Badge>
           </div>
 
@@ -99,7 +99,7 @@ export function EpisodeModal({ episode, onClose }: EpisodeModalProps) {
             {episode.written_by && (
               <div className="flex items-center gap-2 bg-muted rounded-full px-4 py-2">
                 <FileText className="w-4 h-4 text-secondary" />
-                <span className="text-sm font-body text-foreground">Guión: {episode.written_by}</span>
+                <span className="text-sm font-body text-foreground">Written by: {episode.written_by}</span>
               </div>
             )}
           </div>
@@ -109,7 +109,7 @@ export function EpisodeModal({ episode, onClose }: EpisodeModalProps) {
             <div className="bg-gradient-to-br from-secondary/10 to-secondary/5 rounded-2xl p-5 border border-secondary/20">
               <div className="flex items-center gap-2 mb-3">
                 <FileText className="w-5 h-5 text-secondary" />
-                <h3 className="font-heading font-bold text-foreground">Sinopsis</h3>
+                <h3 className="font-heading font-bold text-foreground">Synopsis</h3>
               </div>
               <ScrollArea className="max-h-40">
                 <p className="text-sm font-body text-foreground/90 leading-relaxed pr-4">
@@ -121,7 +121,7 @@ export function EpisodeModal({ episode, onClose }: EpisodeModalProps) {
             <div className="bg-muted/50 rounded-2xl p-6 text-center border border-border/50">
               <span className="text-4xl mb-3 block">📺</span>
               <p className="text-sm text-muted-foreground font-body">
-                No hay sinopsis disponible para este episodio.
+                No synopsis available for this episode.
               </p>
             </div>
           )}
@@ -131,12 +131,12 @@ export function EpisodeModal({ episode, onClose }: EpisodeModalProps) {
             <div className="inline-flex items-center gap-4 bg-muted/50 rounded-full px-6 py-3">
               <div className="text-center">
                 <p className="text-2xl font-heading font-bold text-primary">{episode.season}</p>
-                <p className="text-xs text-muted-foreground">Temporada</p>
+                <p className="text-xs text-muted-foreground">Season</p>
               </div>
               <div className="w-px h-10 bg-border" />
               <div className="text-center">
                 <p className="text-2xl font-heading font-bold text-secondary">{episode.episode}</p>
-                <p className="text-xs text-muted-foreground">Episodio</p>
+                <p className="text-xs text-muted-foreground">Episode</p>
               </div>
             </div>
           </div>

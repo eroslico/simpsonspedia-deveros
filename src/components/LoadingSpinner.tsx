@@ -8,7 +8,7 @@ export function LoadingSpinner() {
         </div>
       </div>
       <p className="mt-4 font-heading text-lg text-muted-foreground animate-pulse">
-        Cargando...
+        Loading...
       </p>
     </div>
   );

@@ -1,28 +1,30 @@
 import { Link } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
-import { Users, Tv, MapPin, ArrowRight } from "lucide-react";
+import { PageTransition } from "@/components/PageTransition";
+import { Users, Tv, MapPin, ArrowRight, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useFavorites } from "@/hooks/useFavorites";
 
 const features = [
   {
-    title: "Personajes",
-    description: "Explora todos los personajes de Springfield y más allá",
+    title: "Characters",
+    description: "Explore all the characters from Springfield and beyond",
     icon: Users,
     href: "/characters",
     color: "bg-primary hover:bg-primary/90",
     emoji: "👥",
   },
   {
-    title: "Episodios",
-    description: "Descubre cada episodio de la serie animada más larga",
+    title: "Episodes",
+    description: "Discover every episode of the longest-running animated series",
     icon: Tv,
     href: "/episodes",
     color: "bg-secondary hover:bg-secondary/90",
     emoji: "📺",
   },
   {
-    title: "Locaciones",
-    description: "Visita los lugares más icónicos como el Bar de Moe",
+    title: "Locations",
+    description: "Visit the most iconic places like Moe's Tavern",
     icon: MapPin,
     href: "/locations",
     color: "bg-accent hover:bg-accent/90",
@@ -31,10 +33,12 @@ const features = [
 ];
 
 export default function Index() {
+  const { totalFavorites } = useFavorites();
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      
+      <PageTransition>
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-sky-gradient">
         <div className="absolute inset-0 opacity-10">
@@ -43,7 +47,7 @@ export default function Index() {
           <div className="absolute bottom-20 left-1/4 text-7xl animate-float" style={{ animationDelay: "0.5s" }}>☁️</div>
         </div>
         
-        <div className="container mx-auto px-4 py-16 md:py-24 relative">
+        <div className="container mx-auto px-4 py-16 md:py-24 relative z-10">
           <div className="text-center max-w-4xl mx-auto">
             <div className="mb-6 animate-bounce-in">
               <span className="text-7xl md:text-9xl">🍩</span>
@@ -52,13 +56,13 @@ export default function Index() {
               Simpsonspedia
             </h1>
             <p className="text-xl md:text-2xl text-foreground/80 mb-8 font-body max-w-2xl mx-auto animate-bounce-in" style={{ animationDelay: "0.2s" }}>
-              La enciclopedia definitiva del universo de Los Simpsons. 
-              Descubre personajes, episodios y lugares de Springfield.
+              The ultimate encyclopedia of The Simpsons universe. 
+              Discover characters, episodes, and places from Springfield.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center animate-bounce-in" style={{ animationDelay: "0.3s" }}>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center animate-bounce-in relative z-20" style={{ animationDelay: "0.3s" }}>
               <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 font-heading text-lg h-14 px-8 rounded-full shadow-lg hover:shadow-xl transition-all">
                 <Link to="/characters">
-                  Explorar Personajes
+                  Explore Characters
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Link>
               </Button>
@@ -77,7 +81,7 @@ export default function Index() {
       {/* Features Section */}
       <section className="container mx-auto px-4 py-16 md:py-20">
         <h2 className="text-3xl md:text-4xl font-heading font-bold text-center mb-12 text-foreground">
-          ¿Qué quieres explorar? 🔍
+          What do you want to explore? 🔍
         </h2>
         
         <div className="grid md:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto">
@@ -96,7 +100,7 @@ export default function Index() {
                 {feature.description}
               </p>
               <span className="inline-flex items-center text-primary font-heading font-medium group-hover:gap-2 transition-all">
-                Explorar <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                Explore <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
               </span>
             </Link>
           ))}
@@ -107,14 +111,14 @@ export default function Index() {
       <section className="bg-primary/10 py-16">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-heading font-bold text-center mb-12 text-foreground">
-            ¿Sabías que...? 🤔
+            Did you know...? 🤔
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {[
-              { stat: "750+", label: "Episodios emitidos", emoji: "📺" },
-              { stat: "1989", label: "Año de estreno", emoji: "📅" },
-              { stat: "35+", label: "Temporadas", emoji: "🏆" },
-              { stat: "∞", label: "Predicciones cumplidas", emoji: "🔮" },
+              { stat: "750+", label: "Episodes aired", emoji: "📺" },
+              { stat: "1989", label: "Premiere year", emoji: "📅" },
+              { stat: "35+", label: "Seasons", emoji: "🏆" },
+              { stat: "∞", label: "Predictions fulfilled", emoji: "🔮" },
             ].map((fact, index) => (
               <div
                 key={fact.label}
@@ -130,18 +134,40 @@ export default function Index() {
         </div>
       </section>
 
+      {/* Favorites CTA Section */}
+      {totalFavorites > 0 && (
+        <section className="container mx-auto px-4 py-12">
+          <div className="bg-gradient-to-r from-accent/20 to-primary/20 rounded-3xl p-8 text-center border-2 border-accent/30">
+            <Heart className="w-12 h-12 text-accent mx-auto mb-4" />
+            <h2 className="text-2xl font-heading font-bold text-foreground mb-2">
+              You have {totalFavorites} favorite{totalFavorites > 1 ? "s" : ""}!
+            </h2>
+            <p className="text-muted-foreground font-body mb-4">
+              Check out your saved characters, episodes, and locations
+            </p>
+            <Button asChild className="bg-accent text-accent-foreground hover:bg-accent/90 font-heading rounded-full px-6">
+              <Link to="/favorites">
+                View Favorites
+                <Heart className="ml-2 w-4 h-4" />
+              </Link>
+            </Button>
+          </div>
+        </section>
+      )}
+
       {/* Footer */}
       <footer className="bg-foreground text-background py-8">
         <div className="container mx-auto px-4 text-center">
           <p className="font-heading text-xl mb-2">🍩 Simpsonspedia</p>
           <p className="text-sm opacity-70 font-body">
-            Hecho con 💛 por fans de Los Simpsons
+            Made with 💛 by The Simpsons fans
           </p>
           <p className="text-xs opacity-50 mt-2 font-body">
-            Los Simpsons™ y todos los personajes relacionados son propiedad de 20th Century Fox
+            The Simpsons™ and all related characters are property of 20th Century Fox
           </p>
         </div>
       </footer>
+      </PageTransition>
     </div>
   );
 }

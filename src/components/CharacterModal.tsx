@@ -28,15 +28,15 @@ export function CharacterModal({ character, onClose }: CharacterModalProps) {
   const isAlive = character.status?.toLowerCase() === "alive";
 
   const infoItems = [
-    { icon: Briefcase, label: "Ocupación", value: character.occupation, color: "text-primary" },
+    { icon: Briefcase, label: "Occupation", value: character.occupation, color: "text-primary" },
     { 
       icon: User, 
-      label: "Género", 
-      value: character.gender === "Male" ? "Masculino" : character.gender === "Female" ? "Femenino" : character.gender,
+      label: "Gender", 
+      value: character.gender,
       color: "text-secondary" 
     },
-    { icon: Heart, label: "Edad", value: character.age ? `${character.age} años` : null, color: "text-accent" },
-    { icon: Calendar, label: "Nacimiento", value: character.birthdate, color: "text-simpsons-orange" },
+    { icon: Heart, label: "Age", value: character.age ? `${character.age} years old` : null, color: "text-accent" },
+    { icon: Calendar, label: "Birthdate", value: character.birthdate, color: "text-simpsons-orange" },
   ].filter(item => item.value);
 
   return (
@@ -82,7 +82,7 @@ export function CharacterModal({ character, onClose }: CharacterModalProps) {
                   : "bg-destructive hover:bg-destructive text-destructive-foreground"
               )}
             >
-              {isAlive ? "✨ Vivo" : "💀 Fallecido"}
+              {isAlive ? "✨ Alive" : "💀 Deceased"}
             </Badge>
           </div>
         </div>
@@ -124,7 +124,7 @@ export function CharacterModal({ character, onClose }: CharacterModalProps) {
             <div className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl p-4 border border-primary/20">
               <div className="flex items-center gap-2 mb-3">
                 <MessageCircle className="w-5 h-5 text-primary" />
-                <h3 className="font-heading font-bold text-foreground">Frases Famosas</h3>
+                <h3 className="font-heading font-bold text-foreground">Famous Quotes</h3>
                 <Badge variant="secondary" className="ml-auto text-xs">
                   {character.phrases.length}
                 </Badge>
@@ -148,7 +148,7 @@ export function CharacterModal({ character, onClose }: CharacterModalProps) {
             <div className="bg-muted/50 rounded-2xl p-6 text-center border border-border/50">
               <span className="text-4xl mb-3 block animate-bounce-in">🤫</span>
               <p className="text-sm text-muted-foreground font-body">
-                Este personaje prefiere el silencio...
+                This character prefers silence...
               </p>
             </div>
           )}
