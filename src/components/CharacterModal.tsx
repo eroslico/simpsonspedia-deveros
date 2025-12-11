@@ -1,8 +1,11 @@
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Briefcase, User, Heart, Calendar, MessageCircle, X, Sparkles } from "lucide-react";
+import { Briefcase, User, Heart, Calendar, MessageCircle, X, Sparkles, Share2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { CharacterTags } from "./CharacterTags";
+import { ShareButton } from "./ShareButton";
+import { FavoriteButton } from "./FavoriteButton";
 
 interface Character {
   id: number;
@@ -89,9 +92,29 @@ export function CharacterModal({ character, onClose }: CharacterModalProps) {
 
         {/* Content */}
         <div className="px-6 pb-6 pt-6">
-          <h2 className="text-2xl md:text-3xl font-heading font-bold text-center text-foreground mb-6 animate-bounce-in">
+          <h2 className="text-2xl md:text-3xl font-heading font-bold text-center text-foreground mb-2 animate-bounce-in">
             {character.name}
           </h2>
+          
+          {/* Character Tags */}
+          <div className="flex justify-center mb-4">
+            <CharacterTags characterName={character.name} />
+          </div>
+
+          {/* Action buttons */}
+          <div className="flex justify-center gap-2 mb-6">
+            <FavoriteButton
+              id={character.id}
+              type="character"
+              name={character.name}
+              image={imageUrl}
+            />
+            <ShareButton
+              title={character.name}
+              text={`Check out ${character.name} from The Simpsons!`}
+              url={window.location.href}
+            />
+          </div>
 
           {/* Info cards */}
           {infoItems.length > 0 && (

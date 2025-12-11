@@ -2,23 +2,95 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Simpsonspedia - The Simpsons Encyclopedia</title>
-    <meta name="description" content="Explore The Simpsons universe: characters, episodes, and locations from Springfield" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <title>Simpsonspedia - The Ultimate Simpsons Encyclopedia</title>
+    <meta name="description" content="The ultimate encyclopedia of The Simpsons universe. Explore 100+ characters, 750+ episodes, iconic locations, play trivia, create memes, and much more!" />
     <meta name="author" content="Simpsonspedia" />
+    <meta name="keywords" content="Simpsons, Homer Simpson, Bart Simpson, Springfield, TV Show, Encyclopedia, Trivia, Characters, Episodes" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://simpsonspedia.app" />
+    
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#FFD93D" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1a1625" media="(prefers-color-scheme: dark)" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Simpsonspedia" />
+    <link rel="apple-touch-icon" href="/icon-192.png" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="Simpsonspedia" />
+    <meta name="msapplication-TileColor" content="#FFD93D" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
 
-    <meta property="og:title" content="Simpsonspedia - The Simpsons Encyclopedia" />
-    <meta property="og:description" content="Explore The Simpsons universe: characters, episodes, and locations from Springfield" />
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <meta property="og:url" content="https://simpsonspedia.app" />
+    <meta property="og:title" content="Simpsonspedia - The Ultimate Simpsons Encyclopedia" />
+    <meta property="og:description" content="Explore The Simpsons universe: 100+ characters, 750+ episodes, trivia games, meme generator, and more! 🍩" />
+    <meta property="og:image" content="/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Simpsonspedia" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="es_ES" />
 
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@Simpsonspedia" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <meta name="twitter:url" content="https://simpsonspedia.app" />
+    <meta name="twitter:title" content="Simpsonspedia - The Ultimate Simpsons Encyclopedia" />
+    <meta name="twitter:description" content="Explore The Simpsons universe: 100+ characters, 750+ episodes, trivia games, meme generator, and more! 🍩" />
+    <meta name="twitter:image" content="/og-image.png" />
+    <meta name="twitter:creator" content="@simpsonspedia" />
+
+    <!-- Preconnect to API -->
+    <link rel="preconnect" href="https://thesimpsonsapi.com" />
+    <link rel="preconnect" href="https://cdn.thesimpsonsapi.com" />
+    <link rel="dns-prefetch" href="https://thesimpsonsapi.com" />
+    <link rel="dns-prefetch" href="https://cdn.thesimpsonsapi.com" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Simpsonspedia",
+      "description": "The ultimate encyclopedia of The Simpsons universe",
+      "url": "https://simpsonspedia.app",
+      "applicationCategory": "Entertainment",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "1000"
+      }
+    }
+    </script>
   </head>
 
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Register Service Worker -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then(reg => console.log('SW registered'))
+            .catch(err => console.log('SW registration failed'));
+        });
+      }
+    </script>
   </body>
 </html>

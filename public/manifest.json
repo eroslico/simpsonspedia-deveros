@@ -1,0 +1,60 @@
+{
+  "name": "Simpsonspedia",
+  "short_name": "Simpsonspedia",
+  "description": "The ultimate encyclopedia of The Simpsons universe",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFF9E6",
+  "theme_color": "#FFD93D",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["entertainment", "reference"],
+  "lang": "en",
+  "dir": "ltr",
+  "shortcuts": [
+    {
+      "name": "Characters",
+      "short_name": "Characters",
+      "description": "Browse Simpsons characters",
+      "url": "/characters",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Episodes",
+      "short_name": "Episodes",
+      "description": "Browse Simpsons episodes",
+      "url": "/episodes",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Trivia",
+      "short_name": "Trivia",
+      "description": "Play Simpsons trivia",
+      "url": "/trivia",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    }
+  ],
+  "screenshots": [],
+  "prefer_related_applications": false,
+  "related_applications": []
+}
+

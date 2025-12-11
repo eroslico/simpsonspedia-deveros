@@ -2,13 +2,14 @@ import { useState, useEffect, useCallback, useMemo } from "react";
 import { Navbar } from "@/components/Navbar";
 import { EpisodeCard } from "@/components/EpisodeCard";
 import { SearchBar } from "@/components/SearchBar";
-import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { PageHeader } from "@/components/PageHeader";
 import { EpisodeModal } from "@/components/EpisodeModal";
 import { PageTransition } from "@/components/PageTransition";
 import { ErrorState } from "@/components/ErrorState";
 import { EmptyState } from "@/components/EmptyState";
 import { FavoriteButton } from "@/components/FavoriteButton";
+import { ScrollToTop } from "@/components/ScrollToTop";
+import { SkeletonGrid } from "@/components/SkeletonCard";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 import { useFavorites } from "@/hooks/useFavorites";
 import { Loader2, ChevronDown, Filter } from "lucide-react";
@@ -228,7 +229,7 @@ export default function Episodes() {
               onRetry={handleRetry}
             />
           ) : loading ? (
-            <LoadingSpinner />
+            <SkeletonGrid count={12} type="episode" />
           ) : (
             <>
               <p className="text-center text-muted-foreground mb-6 font-body">
@@ -331,6 +332,7 @@ export default function Episodes() {
           />
         </main>
       </PageTransition>
+      <ScrollToTop />
     </div>
   );
 }

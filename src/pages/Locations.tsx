@@ -2,12 +2,13 @@ import { useState, useEffect, useCallback } from "react";
 import { Navbar } from "@/components/Navbar";
 import { LocationCard } from "@/components/LocationCard";
 import { SearchBar } from "@/components/SearchBar";
-import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { PageHeader } from "@/components/PageHeader";
 import { PageTransition } from "@/components/PageTransition";
 import { ErrorState } from "@/components/ErrorState";
 import { EmptyState } from "@/components/EmptyState";
 import { FavoriteButton } from "@/components/FavoriteButton";
+import { ScrollToTop } from "@/components/ScrollToTop";
+import { SkeletonGrid } from "@/components/SkeletonCard";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 import { useFavorites } from "@/hooks/useFavorites";
 import { Loader2 } from "lucide-react";
@@ -137,7 +138,7 @@ export default function Locations() {
               onRetry={handleRetry}
             />
           ) : loading ? (
-            <LoadingSpinner />
+            <SkeletonGrid count={12} type="location" />
           ) : (
             <>
               <p className="text-center text-muted-foreground mb-6 font-body">
@@ -204,6 +205,7 @@ export default function Locations() {
           )}
         </main>
       </PageTransition>
+      <ScrollToTop />
     </div>
   );
 }

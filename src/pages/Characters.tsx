@@ -9,6 +9,8 @@ import { PageTransition } from "@/components/PageTransition";
 import { ErrorState } from "@/components/ErrorState";
 import { EmptyState } from "@/components/EmptyState";
 import { FavoriteButton } from "@/components/FavoriteButton";
+import { ScrollToTop } from "@/components/ScrollToTop";
+import { SkeletonGrid } from "@/components/SkeletonCard";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 import { useFavorites } from "@/hooks/useFavorites";
 import { Loader2, Filter, ChevronDown, X } from "lucide-react";
@@ -19,7 +21,6 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 
 interface Character {
@@ -310,7 +311,7 @@ export default function Characters() {
               onRetry={handleRetry}
             />
           ) : loading ? (
-            <LoadingSpinner />
+            <SkeletonGrid count={18} type="character" />
           ) : (
             <>
               <p className="text-center text-muted-foreground mb-6 font-body">
@@ -381,6 +382,7 @@ export default function Characters() {
           />
         </main>
       </PageTransition>
+      <ScrollToTop />
     </div>
   );
 }

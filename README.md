@@ -1,130 +1,279 @@
 # 🍩 Simpsonspedia
 
-An interactive web encyclopedia of The Simpsons universe. Explore characters, episodes, and iconic locations from Springfield.
+<div align="center">
+
+![Simpsonspedia Banner](https://img.shields.io/badge/Simpsonspedia-FFD93D?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjEwIi8+PC9zdmc+&logoColor=black)
+
+**The Ultimate Encyclopedia of The Simpsons Universe**
+
+[![React](https://img.shields.io/badge/React-18.3-61DAFB?style=flat-square&logo=react)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38B2AC?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
+[![Vite](https://img.shields.io/badge/Vite-5.0-646CFF?style=flat-square&logo=vite)](https://vitejs.dev/)
+[![PWA](https://img.shields.io/badge/PWA-Ready-5A0FC8?style=flat-square&logo=pwa)](https://web.dev/progressive-web-apps/)
+
+[Live Demo](#) • [Features](#-features) • [Screenshots](#-screenshots) • [Installation](#-installation) • [Tech Stack](#-tech-stack)
+
+</div>
+
+---
+
+## 📖 About
+
+Simpsonspedia is a comprehensive, feature-rich web application dedicated to The Simpsons universe. Built as a portfolio project, it showcases modern web development practices including React, TypeScript, and Progressive Web App capabilities.
+
+Explore characters, episodes, and locations from Springfield. Play trivia games, create memes, track your progress, and much more!
+
+---
 
 ## ✨ Features
 
-- **Characters**: Discover detailed information about all The Simpsons characters
-- **Episodes**: Browse through the extensive collection of series episodes
-- **Locations**: Explore the most iconic places like Moe's Tavern, Springfield Elementary School, and more
-- **Search**: Quickly find any character, episode, or location
-- **Modern UI**: Responsive and attractive design built with modern components
+### 🎭 Core Features
+- **Characters Database** - Browse 100+ characters with detailed profiles
+- **Episodes Guide** - Explore 750+ episodes across 35+ seasons
+- **Locations Directory** - Discover iconic Springfield locations
+- **Advanced Search** - Find anything with powerful filters
 
-## 🚀 Quick Start
+### 🎮 Interactive Features
+- **Trivia Game** - Test your knowledge with timed questions and streaks
+- **Personality Quiz** - Find out which Simpson character you are
+- **Meme Generator** - Create and download custom Simpsons memes
+- **Soundboard** - Play famous catchphrases and quotes
+- **Character Comparator** - Compare characters side by side
+
+### 📊 Data & Progress
+- **Favorites System** - Save your favorite content
+- **Episode Timeline** - Track watched episodes visually
+- **Reviews & Ratings** - Rate and review episodes
+- **User Profile** - Track your stats and achievements
+- **16 Achievements** - Unlock badges as you explore
+
+### 🔮 Unique Features
+- **Predictions Page** - Famous Simpsons predictions that came true
+- **Family Tree** - Interactive Simpson family visualization
+- **On This Day** - Episodes that aired on today's date
+- **Character of the Day** - Daily featured character
+
+### 🛠 Technical Features
+- **PWA Support** - Install as a native app
+- **Offline Mode** - Works without internet
+- **Dark Mode** - Beautiful night theme
+- **i18n** - English and Spanish support
+- **Data Export/Import** - Backup your progress
+- **Easter Eggs** - Hidden surprises to discover!
+
+---
+
+## 📸 Screenshots
+
+<div align="center">
+
+| Home Page | Characters | Trivia |
+|:-:|:-:|:-:|
+| 🏠 Hero with animations | 👥 Grid with filters | 🧠 Timed questions |
+
+| Meme Generator | Family Tree | Profile |
+|:-:|:-:|:-:|
+| 🎨 Create & download | 🌳 Interactive tree | 👤 Stats & achievements |
+
+</div>
+
+---
+
+## 🚀 Installation
 
 ### Prerequisites
-
-- Node.js (version 18 or higher)
+- Node.js 18+ 
 - npm or yarn
 
-### Installation
-
-1. Clone the repository:
+### Quick Start
 
 ```bash
-git clone <REPOSITORY_URL>
+# Clone the repository
+git clone https://github.com/yourusername/simpsonspedia.git
+
+# Navigate to project directory
 cd simpsonspedia
-```
 
-2. Install dependencies:
-
-```bash
+# Install dependencies
 npm install
-```
 
-3. Start the development server:
-
-```bash
+# Start development server
 npm run dev
+
+# Build for production
+npm run build
 ```
 
-4. Open your browser at `http://localhost:5173`
+### Environment Variables
+No environment variables required! The app uses a public API.
 
-## 📜 Available Scripts
+---
 
-- `npm run dev` - Start the development server with hot-reload
-- `npm run build` - Build the application for production
-- `npm run build:dev` - Build the application in development mode
-- `npm run preview` - Preview the production build
-- `npm run lint` - Run the linter to check the code
+## 🛠 Tech Stack
 
-## 🛠️ Technologies Used
+### Frontend
+- **React 18** - UI library with hooks
+- **TypeScript** - Type safety
+- **Tailwind CSS** - Utility-first styling
+- **Shadcn/ui** - Beautiful components
+- **React Router** - Client-side routing
+- **TanStack Query** - Data fetching
 
-This project is built with the following technologies:
+### Build & Tools
+- **Vite** - Fast build tool
+- **ESLint** - Code linting
+- **PostCSS** - CSS processing
 
-- **Vite** - Ultra-fast build tool and development server
-- **React** - JavaScript library for building user interfaces
-- **TypeScript** - JavaScript superset with static typing
-- **React Router** - Routing for React applications
-- **TanStack Query** - Server state management and caching
-- **shadcn/ui** - Accessible and customizable UI components
-- **Tailwind CSS** - Utility-first CSS framework
-- **Radix UI** - Accessible primitive components
-- **Lucide React** - Modern and beautiful icons
+### Features
+- **PWA** - Service Worker for offline
+- **i18n** - Custom translation system
+- **LocalStorage** - Persistent data
+
+### API
+- [The Simpsons API](https://thesimpsonsapi.com/) - Character, episode, and location data
+
+---
 
 ## 📁 Project Structure
 
 ```
 simpsonspedia/
-├── public/          # Static files
+├── public/
+│   ├── manifest.json      # PWA manifest
+│   └── sw.js              # Service Worker
 ├── src/
-│   ├── components/  # Reusable components
-│   │   ├── ui/      # Base UI components (shadcn/ui)
-│   │   └── ...      # App-specific components
-│   ├── hooks/       # Custom hooks
-│   ├── lib/         # Utilities and helpers
-│   ├── pages/       # Application pages
-│   ├── App.tsx      # Main component
-│   └── main.tsx     # Entry point
-├── package.json
-└── README.md
+│   ├── components/        # Reusable components
+│   │   ├── ui/            # Shadcn components
+│   │   ├── Navbar.tsx
+│   │   ├── CharacterModal.tsx
+│   │   └── ...
+│   ├── hooks/             # Custom React hooks
+│   │   ├── useFavorites.ts
+│   │   ├── useTheme.ts
+│   │   └── ...
+│   ├── i18n/              # Translations
+│   │   └── translations.ts
+│   ├── pages/             # Route pages
+│   │   ├── Index.tsx
+│   │   ├── Characters.tsx
+│   │   ├── Trivia.tsx
+│   │   └── ...
+│   ├── lib/               # Utilities
+│   ├── App.tsx            # Main app component
+│   └── index.css          # Global styles
+└── package.json
 ```
 
-## 🎨 Customization
+---
 
-The project uses customizable CSS variables for theming. You can modify colors and styles in:
+## 🎯 Key Features Breakdown
 
-- `src/index.css` - CSS variables and global styles
-- `tailwind.config.ts` - Tailwind CSS configuration
+### Trivia Game
+- 25+ questions across multiple categories
+- 15-second timer per question
+- Streak bonuses for consecutive correct answers
+- High score tracking with localStorage
 
-## 📦 Deployment
+### Achievement System
+- 16 unlockable achievements
+- 4 categories: Explorer, Collector, Trivia, Dedication
+- Progress tracking with visual indicators
 
-### Production Build
+### Meme Generator
+- Select from 100+ character images
+- 4 text templates (top/bottom, caption, etc.)
+- 5 color options
+- Canvas-based image generation
+- Direct download as PNG
 
-```bash
-npm run build
-```
+### Family Tree
+- Pan and zoom navigation
+- 12 family members across 3 generations
+- Marriage and parent-child connections
+- Detailed info modals
 
-This will generate a `dist` folder with optimized files ready to deploy.
+---
 
-### Deployment Options
+## 🌐 Browser Support
 
-You can deploy this application on any platform that supports static applications:
+| Browser | Support |
+|---------|---------|
+| Chrome | ✅ Full |
+| Firefox | ✅ Full |
+| Safari | ✅ Full |
+| Edge | ✅ Full |
+| Mobile | ✅ Full + PWA |
 
-- **Vercel**: Connect your repository and deploy automatically
-- **Netlify**: Drag and drop the `dist` folder or connect your repository
-- **GitHub Pages**: Use GitHub Actions for automatic deployment
-- **Cloudflare Pages**: Connect your repository for automatic deployments
+---
+
+## 📱 PWA Features
+
+- ✅ Installable on desktop and mobile
+- ✅ Offline support with caching
+- ✅ App shortcuts
+- ✅ Splash screen
+- ✅ Push notification ready
+
+---
+
+## 🎨 Theming
+
+### Light Mode
+- Simpsons yellow (#FFD93D) as primary
+- Sky blue accents
+- Warm, cheerful aesthetic
+
+### Dark Mode
+- Deep purple/blue background
+- Neon accents
+- "Springfield at Night" theme
+
+---
 
 ## 🤝 Contributing
 
-Contributions are welcome. Feel free to:
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 1. Fork the project
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
 3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📝 License
+---
 
-This project is open source and available under the MIT License.
+## 📄 License
 
-## 🙏 Acknowledgments
+This project is for educational and portfolio purposes only.
 
-- The Simpsons™ and all related characters are property of 20th Century Fox
-- This project is a fan creation with no official affiliation
+**The Simpsons™** and all related characters are property of **20th Century Fox** and **The Walt Disney Company**.
 
 ---
 
-Made with 💛 by The Simpsons fans
+## 👨‍💻 Author
+
+**Your Name**
+
+- Portfolio: [yourportfolio.com](#)
+- LinkedIn: [linkedin.com/in/yourprofile](#)
+- GitHub: [@yourusername](#)
+
+---
+
+## 🙏 Acknowledgments
+
+- [The Simpsons API](https://thesimpsonsapi.com/) for providing the data
+- [Shadcn/ui](https://ui.shadcn.com/) for beautiful components
+- [Lucide Icons](https://lucide.dev/) for the icon set
+- The Simpsons creators and fans worldwide
+
+---
+
+<div align="center">
+
+**Made with 💛 by Simpsons fans, for Simpsons fans**
+
+*D'oh! You've reached the end of the README!* 🍩
+
+</div>

@@ -1,186 +1,325 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { PageTransition } from "@/components/PageTransition";
-import { Users, Tv, MapPin, ArrowRight, Heart } from "lucide-react";
+import { ScrollToTop } from "@/components/ScrollToTop";
+import { RandomButton } from "@/components/RandomButton";
+import { OnThisDay } from "@/components/OnThisDay";
+import { DonutEasterEgg } from "@/components/EasterEgg";
+import { SkipLink } from "@/components/SkipLink";
+import { CharacterOfTheDay, RandomEpisodeWidget, QuickStatsWidget } from "@/components/HomepageWidgets";
+import { UltraHero } from "@/components/UltraHero";
+import { FeatureShowcase } from "@/components/FeatureShowcase";
+import { TestimonialSection } from "@/components/TestimonialSection";
+import { InteractiveFooter } from "@/components/InteractiveFooter";
+import { ScrollReveal, ScrollCounter, Parallax } from "@/components/ScrollAnimations";
+import { GlassCard } from "@/components/GlassCard";
+import { CursorEffects, ClickRipple } from "@/components/CursorEffects";
+import { UltraLoadingScreen } from "@/components/UltraLoadingScreen";
+import { Users, Tv, MapPin, ArrowRight, Heart, BarChart3, Brain, ArrowLeftRight, Image, Calendar, User, Volume2, TreeDeciduous, Sparkles, Gamepad2, Zap, Trophy, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useFavorites } from "@/hooks/useFavorites";
+import { cn } from "@/lib/utils";
 
-const features = [
-  {
-    title: "Characters",
-    description: "Explore all the characters from Springfield and beyond",
-    icon: Users,
-    href: "/characters",
-    color: "bg-primary hover:bg-primary/90",
-    emoji: "👥",
-  },
-  {
-    title: "Episodes",
-    description: "Discover every episode of the longest-running animated series",
-    icon: Tv,
-    href: "/episodes",
-    color: "bg-secondary hover:bg-secondary/90",
-    emoji: "📺",
-  },
-  {
-    title: "Locations",
-    description: "Visit the most iconic places like Moe's Tavern",
-    icon: MapPin,
-    href: "/locations",
-    color: "bg-accent hover:bg-accent/90",
-    emoji: "🗺️",
-  },
+const games = [
+  { name: "Wordle", emoji: "📝", path: "/wordle", color: "from-green-400 to-emerald-500" },
+  { name: "Who Said It", emoji: "🗣️", path: "/who-said-it", color: "from-blue-400 to-cyan-500" },
+  { name: "Bingo", emoji: "🎲", path: "/bingo", color: "from-yellow-400 to-orange-500" },
+  { name: "Guess", emoji: "🎬", path: "/guess", color: "from-purple-400 to-pink-500" },
+  { name: "Trivia", emoji: "🧠", path: "/trivia", color: "from-red-400 to-rose-500" },
+  { name: "Memory", emoji: "🎴", path: "/memory", color: "from-indigo-400 to-violet-500" },
+  { name: "Personality", emoji: "🪞", path: "/quiz", color: "from-amber-400 to-yellow-500" },
+  { name: "Memes", emoji: "🎨", path: "/memes", color: "from-pink-400 to-rose-500" },
+];
+
+const quickLinks = [
+  { name: "Map", emoji: "🗺️", path: "/map" },
+  { name: "Couch Gags", emoji: "🛋️", path: "/couch-gags" },
+  { name: "Compare", emoji: "⚖️", path: "/compare" },
+  { name: "Timeline", emoji: "📅", path: "/timeline" },
+  { name: "Predictions", emoji: "🔮", path: "/predictions" },
+  { name: "Family Tree", emoji: "🌳", path: "/family-tree" },
+  { name: "Soundboard", emoji: "🔊", path: "/soundboard" },
+  { name: "Profile", emoji: "👤", path: "/profile" },
 ];
 
 export default function Index() {
   const { totalFavorites } = useFavorites();
+  const [isLoading, setIsLoading] = useState(true);
+  const [showContent, setShowContent] = useState(false);
+
+  useEffect(() => {
+    // Check if loading was already shown this session
+    const loadingShown = sessionStorage.getItem("loading-shown");
+    if (loadingShown) {
+      setIsLoading(false);
+      setShowContent(true);
+    }
+  }, []);
+
+  const handleLoadingComplete = () => {
+    setIsLoading(false);
+    setTimeout(() => setShowContent(true), 100);
+  };
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navbar />
-      <PageTransition>
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-sky-gradient">
-        {/* Light mode clouds */}
-        <div className="absolute inset-0 opacity-50 dark:opacity-0">
-          <div className="absolute top-10 left-10 text-8xl animate-float">☁️</div>
-          <div className="absolute top-20 right-20 text-6xl animate-float" style={{ animationDelay: "1s" }}>☁️</div>
-          <div className="absolute bottom-20 left-1/4 text-7xl animate-float" style={{ animationDelay: "0.5s" }}>☁️</div>
-          <div className="absolute top-32 right-1/3 text-5xl animate-float" style={{ animationDelay: "1.5s" }}>☁️</div>
-        </div>
-        {/* Dark mode stars */}
-        <div className="absolute inset-0 opacity-0 dark:opacity-60">
-          <div className="absolute top-12 left-[10%] text-2xl animate-pulse">✨</div>
-          <div className="absolute top-8 left-[25%] text-xl animate-pulse" style={{ animationDelay: "0.3s" }}>⭐</div>
-          <div className="absolute top-20 left-[45%] text-lg animate-pulse" style={{ animationDelay: "0.6s" }}>✨</div>
-          <div className="absolute top-6 right-[30%] text-2xl animate-pulse" style={{ animationDelay: "0.9s" }}>⭐</div>
-          <div className="absolute top-16 right-[15%] text-xl animate-pulse" style={{ animationDelay: "1.2s" }}>✨</div>
-          <div className="absolute top-28 right-[40%] text-lg animate-pulse" style={{ animationDelay: "0.4s" }}>⭐</div>
-          <div className="absolute bottom-24 left-[20%] text-xl animate-pulse" style={{ animationDelay: "0.7s" }}>✨</div>
-          <div className="absolute bottom-32 right-[25%] text-2xl animate-pulse" style={{ animationDelay: "1s" }}>⭐</div>
-        </div>
-        
-        <div className="container mx-auto px-4 py-16 md:py-24 relative z-10">
-          <div className="text-center max-w-4xl mx-auto">
-            <div className="mb-6 animate-bounce-in">
-              <span className="text-7xl md:text-9xl">🍩</span>
-            </div>
-            <h1 className="text-5xl md:text-7xl font-heading font-bold text-foreground mb-6 text-shadow-md animate-bounce-in" style={{ animationDelay: "0.1s" }}>
-              Simpsonspedia
-            </h1>
-            <p className="text-xl md:text-2xl text-foreground/80 mb-8 font-body max-w-2xl mx-auto animate-bounce-in" style={{ animationDelay: "0.2s" }}>
-              The ultimate encyclopedia of The Simpsons universe. 
-              Discover characters, episodes, and places from Springfield.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center animate-bounce-in relative z-20" style={{ animationDelay: "0.3s" }}>
-              <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 font-heading text-lg h-14 px-8 rounded-full shadow-lg hover:shadow-xl transition-all">
-                <Link to="/characters">
-                  Explore Characters
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-        
-        {/* Wave decoration */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
-            <path d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="hsl(var(--background))"/>
-          </svg>
-        </div>
-      </section>
+    <>
+      {/* Ultra Loading Screen */}
+      {isLoading && <UltraLoadingScreen onComplete={handleLoadingComplete} />}
 
-      {/* Features Section */}
-      <section className="container mx-auto px-4 py-16 md:py-20">
-        <h2 className="text-3xl md:text-4xl font-heading font-bold text-center mb-12 text-foreground">
-          What do you want to explore? 🔍
-        </h2>
+      {/* Cursor Effects */}
+      <CursorEffects enabled={!isLoading} />
+      <ClickRipple />
+
+      <div className={cn(
+        "min-h-screen bg-background transition-opacity duration-500",
+        showContent ? "opacity-100" : "opacity-0"
+      )}>
+        <SkipLink />
+        <Navbar />
         
-        <div className="grid md:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto">
-          {features.map((feature, index) => (
-            <Link
-              key={feature.title}
-              to={feature.href}
-              className="group relative bg-card rounded-3xl p-6 md:p-8 border-4 border-border shadow-lg hover:shadow-2xl hover:border-primary transition-all duration-300 hover:-translate-y-2 animate-bounce-in"
-              style={{ animationDelay: `${index * 100 + 400}ms` }}
-            >
-              <div className="text-5xl mb-4">{feature.emoji}</div>
-              <h3 className="text-2xl font-heading font-bold mb-2 text-foreground group-hover:text-primary transition-colors">
-                {feature.title}
-              </h3>
-              <p className="text-muted-foreground font-body mb-4">
-                {feature.description}
-              </p>
-              <span className="inline-flex items-center text-primary font-heading font-medium group-hover:gap-2 transition-all">
-                Explore <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
-              </span>
-            </Link>
-          ))}
-        </div>
-      </section>
+        <PageTransition>
+          {/* Ultra Hero Section */}
+          <UltraHero />
 
-      {/* Fun Facts Section */}
-      <section className="bg-primary/10 dark:bg-secondary/10 py-16">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-heading font-bold text-center mb-12 text-foreground">
-            Did you know...? 🤔
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-            {[
-              { stat: "750+", label: "Episodes aired", emoji: "📺" },
-              { stat: "1989", label: "Premiere year", emoji: "📅" },
-              { stat: "35+", label: "Seasons", emoji: "🏆" },
-              { stat: "∞", label: "Predictions fulfilled", emoji: "🔮" },
-            ].map((fact, index) => (
-              <div
-                key={fact.label}
-                className="bg-card rounded-2xl p-6 text-center border-2 border-border shadow-md animate-bounce-in"
-                style={{ animationDelay: `${index * 100 + 600}ms` }}
-              >
-                <span className="text-4xl block mb-2">{fact.emoji}</span>
-                <p className="text-4xl font-heading font-bold text-primary mb-1">{fact.stat}</p>
-                <p className="text-muted-foreground font-body">{fact.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+          {/* Feature Showcase */}
+          <FeatureShowcase />
 
-      {/* Favorites CTA Section */}
-      {totalFavorites > 0 && (
-        <section className="container mx-auto px-4 py-12">
-          <div className="bg-gradient-to-r from-accent/20 to-primary/20 rounded-3xl p-8 text-center border-2 border-accent/30">
-            <Heart className="w-12 h-12 text-accent mx-auto mb-4" />
-            <h2 className="text-2xl font-heading font-bold text-foreground mb-2">
-              You have {totalFavorites} favorite{totalFavorites > 1 ? "s" : ""}!
-            </h2>
-            <p className="text-muted-foreground font-body mb-4">
-              Check out your saved characters, episodes, and locations
-            </p>
-            <Button asChild className="bg-accent text-accent-foreground hover:bg-accent/90 font-heading rounded-full px-6">
-              <Link to="/favorites">
-                View Favorites
-                <Heart className="ml-2 w-4 h-4" />
+          {/* Daily Challenge Banner */}
+          <section className="py-12 px-4">
+            <ScrollReveal direction="scale">
+              <Link to="/daily" className="block max-w-4xl mx-auto group">
+                <div className="relative overflow-hidden rounded-3xl p-8 md:p-12 text-center">
+                  {/* Animated gradient background */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary via-accent to-secondary animate-gradient opacity-90" />
+                  
+                  {/* Glow effect */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                  
+                  {/* Floating particles */}
+                  <div className="absolute inset-0 overflow-hidden">
+                    {[...Array(20)].map((_, i) => (
+                      <div
+                        key={i}
+                        className="absolute w-2 h-2 bg-white/30 rounded-full animate-float"
+                        style={{
+                          left: `${Math.random() * 100}%`,
+                          top: `${Math.random() * 100}%`,
+                          animationDelay: `${Math.random() * 5}s`,
+                          animationDuration: `${3 + Math.random() * 4}s`,
+                        }}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Content */}
+                  <div className="relative z-10">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm mb-4">
+                      <Zap className="w-4 h-4 text-white animate-pulse" />
+                      <span className="text-sm font-heading text-white">New challenge available!</span>
+                    </div>
+                    
+                    <h3 className="text-3xl md:text-4xl font-heading font-bold text-white mb-2 group-hover:scale-105 transition-transform">
+                      🎯 Daily Challenge
+                    </h3>
+                    <p className="text-white/80 font-body text-lg mb-4">
+                      Complete today's challenge and earn exclusive rewards!
+                    </p>
+                    
+                    <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-foreground font-heading font-bold group-hover:scale-105 transition-transform">
+                      Start Challenge
+                      <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </div>
+                </div>
               </Link>
-            </Button>
-          </div>
-        </section>
-      )}
+            </ScrollReveal>
+          </section>
 
-      {/* Footer */}
-      <footer className="bg-muted dark:bg-card border-t border-border py-8">
-        <div className="container mx-auto px-4 text-center">
-          <p className="font-heading text-xl mb-2 text-foreground">🍩 Simpsonspedia</p>
-          <p className="text-sm text-muted-foreground font-body">
-            Made with 💛 by The Simpsons fans
-          </p>
-          <p className="text-xs text-muted-foreground/70 mt-2 font-body">
-            The Simpsons™ and all related characters are property of 20th Century Fox
-          </p>
-        </div>
-      </footer>
-      </PageTransition>
-    </div>
+          {/* Games Grid */}
+          <section className="py-16 px-4 bg-gradient-to-b from-transparent via-muted/30 to-transparent">
+            <div className="container mx-auto max-w-6xl">
+              <ScrollReveal direction="up" className="text-center mb-12">
+                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 text-accent text-sm font-heading mb-4">
+                  <Gamepad2 className="w-4 h-4" />
+                  Interactive Fun
+                </span>
+                <h2 className="text-4xl md:text-5xl font-heading font-bold">
+                  Games & <span className="text-primary">Activities</span>
+                </h2>
+              </ScrollReveal>
+
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                {games.map((game, index) => (
+                  <ScrollReveal
+                    key={game.path}
+                    direction={index % 2 === 0 ? "left" : "right"}
+                    delay={index * 50}
+                  >
+                    <Link to={game.path} className="block group">
+                      <GlassCard className="p-6 text-center h-full" hoverScale>
+                        <div className={cn(
+                          "absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-500 rounded-2xl",
+                          `bg-gradient-to-br ${game.color}`
+                        )} />
+                        <span className="text-4xl md:text-5xl block mb-3 group-hover:scale-125 transition-transform duration-300">
+                          {game.emoji}
+                        </span>
+                        <h3 className="font-heading font-bold text-foreground group-hover:text-primary transition-colors">
+                          {game.name}
+                        </h3>
+                      </GlassCard>
+                    </Link>
+                  </ScrollReveal>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Widgets Section */}
+          <section className="py-16 px-4" id="main-content">
+            <div className="container mx-auto max-w-6xl">
+              <ScrollReveal direction="up" className="text-center mb-12">
+                <h2 className="text-3xl md:text-4xl font-heading font-bold">
+                  Today in <span className="text-secondary">Springfield</span>
+                </h2>
+              </ScrollReveal>
+
+              <div className="grid md:grid-cols-3 gap-6 mb-8">
+                <ScrollReveal direction="left" delay={0}>
+                  <CharacterOfTheDay />
+                </ScrollReveal>
+                <ScrollReveal direction="up" delay={100}>
+                  <RandomEpisodeWidget />
+                </ScrollReveal>
+                <ScrollReveal direction="right" delay={200}>
+                  <QuickStatsWidget />
+                </ScrollReveal>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <ScrollReveal direction="left" delay={300}>
+                  <OnThisDay />
+                </ScrollReveal>
+                
+                {/* Quick Stats Card */}
+                <ScrollReveal direction="right" delay={400}>
+                  <GlassCard className="p-6 h-full">
+                    <h3 className="text-xl font-heading font-bold mb-4 flex items-center gap-2">
+                      <Trophy className="w-5 h-5 text-primary" />
+                      Your Progress
+                    </h3>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="text-center p-4 rounded-xl bg-primary/10">
+                        <div className="text-3xl font-heading font-bold text-primary">
+                          <ScrollCounter end={totalFavorites} />
+                        </div>
+                        <div className="text-sm text-muted-foreground">Favorites</div>
+                      </div>
+                      <div className="text-center p-4 rounded-xl bg-secondary/10">
+                        <div className="text-3xl font-heading font-bold text-secondary">
+                          <ScrollCounter end={10} suffix="+" />
+                        </div>
+                        <div className="text-sm text-muted-foreground">Games</div>
+                      </div>
+                      <div className="text-center p-4 rounded-xl bg-accent/10">
+                        <div className="text-3xl font-heading font-bold text-accent">
+                          <ScrollCounter end={750} suffix="+" />
+                        </div>
+                        <div className="text-sm text-muted-foreground">Episodes</div>
+                      </div>
+                      <div className="text-center p-4 rounded-xl bg-muted">
+                        <div className="text-3xl font-heading font-bold">
+                          <ScrollCounter end={100} suffix="+" />
+                        </div>
+                        <div className="text-sm text-muted-foreground">Characters</div>
+                      </div>
+                    </div>
+                    
+                    <Link
+                      to="/profile"
+                      className="mt-4 w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-primary text-primary-foreground font-heading font-bold hover:bg-primary/90 transition-colors"
+                    >
+                      View Full Profile
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  </GlassCard>
+                </ScrollReveal>
+              </div>
+            </div>
+          </section>
+
+          {/* Quick Links */}
+          <section className="py-12 px-4">
+            <div className="container mx-auto max-w-5xl">
+              <ScrollReveal direction="up" className="text-center mb-8">
+                <h2 className="text-2xl font-heading font-bold">
+                  More to <span className="text-accent">Explore</span> 🎉
+                </h2>
+              </ScrollReveal>
+
+              <div className="grid grid-cols-4 md:grid-cols-8 gap-3">
+                {quickLinks.map((link, index) => (
+                  <ScrollReveal key={link.path} direction="scale" delay={index * 30}>
+                    <Link
+                      to={link.path}
+                      className="block group"
+                      data-cursor
+                      data-cursor-text={link.name}
+                    >
+                      <div className="bg-card rounded-2xl p-3 md:p-4 border-2 border-border shadow-md hover:shadow-lg hover:border-primary transition-all text-center group-hover:-translate-y-1">
+                        <span className="text-2xl md:text-3xl block mb-1 group-hover:scale-110 transition-transform">
+                          {link.emoji}
+                        </span>
+                        <span className="text-xs font-heading text-muted-foreground group-hover:text-foreground transition-colors hidden md:block">
+                          {link.name}
+                        </span>
+                      </div>
+                    </Link>
+                  </ScrollReveal>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Testimonials */}
+          <TestimonialSection />
+
+          {/* Favorites CTA */}
+          {totalFavorites > 0 && (
+            <section className="py-12 px-4">
+              <ScrollReveal direction="scale">
+                <div className="container mx-auto max-w-2xl">
+                  <GlassCard className="p-8 text-center" glowColor="accent">
+                    <Heart className="w-16 h-16 text-accent mx-auto mb-4 animate-pulse" />
+                    <h2 className="text-3xl font-heading font-bold mb-2">
+                      You have <span className="text-accent">{totalFavorites}</span> favorite{totalFavorites > 1 ? "s" : ""}!
+                    </h2>
+                    <p className="text-muted-foreground font-body mb-6">
+                      Check out your saved characters, episodes, and locations
+                    </p>
+                    <Button
+                      asChild
+                      size="lg"
+                      className="bg-accent text-accent-foreground hover:bg-accent/90 font-heading rounded-full px-8"
+                    >
+                      <Link to="/favorites">
+                        View Favorites
+                        <Heart className="ml-2 w-5 h-5" />
+                      </Link>
+                    </Button>
+                  </GlassCard>
+                </div>
+              </ScrollReveal>
+            </section>
+          )}
+
+          {/* Interactive Footer */}
+          <InteractiveFooter />
+        </PageTransition>
+        
+        <ScrollToTop />
+      </div>
+    </>
   );
 }

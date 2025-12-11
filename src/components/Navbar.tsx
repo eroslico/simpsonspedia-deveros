@@ -1,14 +1,45 @@
 import { Link, useLocation } from "react-router-dom";
-import { Users, Tv, MapPin, Home, Heart } from "lucide-react";
+import { Users, Tv, MapPin, Home, Heart, BarChart3, Brain, MoreHorizontal, User, ArrowLeftRight, Image, Calendar } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "./ThemeToggle";
+import { GlobalSearch } from "./GlobalSearch";
+import { LanguageToggle } from "./LanguageToggle";
 import { useFavorites } from "@/hooks/useFavorites";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
 
 const navItems = [
   { name: "Home", path: "/", icon: Home },
   { name: "Characters", path: "/characters", icon: Users },
   { name: "Episodes", path: "/episodes", icon: Tv },
   { name: "Locations", path: "/locations", icon: MapPin },
+];
+
+const moreItems = [
+  { name: "Daily Challenge", path: "/daily", emoji: "🎯" },
+  { name: "Stats", path: "/stats", emoji: "📊" },
+  { name: "Trivia", path: "/trivia", emoji: "🧠" },
+  { name: "Memory", path: "/memory", emoji: "🎴" },
+  { name: "Bingo", path: "/bingo", emoji: "🎲" },
+  { name: "Wordle", path: "/wordle", emoji: "📝" },
+  { name: "Who Said It", path: "/who-said-it", emoji: "🗣️" },
+  { name: "Guess Episode", path: "/guess", emoji: "🎬" },
+  { name: "Quiz", path: "/quiz", emoji: "🪞" },
+  { name: "Compare", path: "/compare", emoji: "⚖️" },
+  { name: "Quotes", path: "/quotes", emoji: "💬" },
+  { name: "Memes", path: "/memes", emoji: "🎨" },
+  { name: "Map", path: "/map", emoji: "🗺️" },
+  { name: "Timeline", path: "/timeline", emoji: "📅" },
+  { name: "Couch Gags", path: "/couch-gags", emoji: "🛋️" },
+  { name: "Predictions", path: "/predictions", emoji: "🔮" },
+  { name: "Family Tree", path: "/family-tree", emoji: "🌳" },
+  { name: "Soundboard", path: "/soundboard", emoji: "🔊" },
+  { name: "Profile", path: "/profile", emoji: "👤" },
 ];
 
 export function Navbar() {
@@ -20,7 +51,7 @@ export function Navbar() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
           <Link to="/" className="flex items-center gap-2 group">
-            <span className="text-2xl md:text-3xl font-heading font-bold text-primary-foreground text-shadow-sm group-hover:animate-wiggle">
+            <span className="text-xl md:text-2xl lg:text-3xl font-heading font-bold text-primary-foreground text-shadow-sm group-hover:animate-wiggle">
               🍩 Simpsonspedia
             </span>
           </Link>
@@ -34,14 +65,14 @@ export function Navbar() {
                   key={item.path}
                   to={item.path}
                   className={cn(
-                    "flex items-center gap-2 px-4 py-2 rounded-lg font-heading font-medium transition-all duration-200",
+                    "flex items-center gap-2 px-3 lg:px-4 py-2 rounded-lg font-heading font-medium transition-all duration-200 text-sm lg:text-base",
                     isActive
                       ? "bg-secondary text-secondary-foreground shadow-md"
                       : "text-primary-foreground hover:bg-primary-foreground/10"
                   )}
                 >
-                  <Icon className="w-5 h-5" />
-                  {item.name}
+                  <Icon className="w-4 h-4 lg:w-5 lg:h-5" />
+                  <span className="hidden lg:inline">{item.name}</span>
                 </Link>
               );
             })}
@@ -50,14 +81,14 @@ export function Navbar() {
             <Link
               to="/favorites"
               className={cn(
-                "flex items-center gap-2 px-4 py-2 rounded-lg font-heading font-medium transition-all duration-200 relative",
+                "flex items-center gap-2 px-3 lg:px-4 py-2 rounded-lg font-heading font-medium transition-all duration-200 relative text-sm lg:text-base",
                 location.pathname === "/favorites"
                   ? "bg-secondary text-secondary-foreground shadow-md"
                   : "text-primary-foreground hover:bg-primary-foreground/10"
               )}
             >
-              <Heart className="w-5 h-5" />
-              Favorites
+              <Heart className="w-4 h-4 lg:w-5 lg:h-5" />
+              <span className="hidden lg:inline">Favorites</span>
               {totalFavorites > 0 && (
                 <span className="absolute -top-1 -right-1 w-5 h-5 bg-accent text-accent-foreground text-xs font-bold rounded-full flex items-center justify-center animate-bounce-in">
                   {totalFavorites > 99 ? "99+" : totalFavorites}
@@ -65,14 +96,44 @@ export function Navbar() {
               )}
             </Link>
 
-            <div className="ml-2">
+            {/* More dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger
+                className={cn(
+                  "flex items-center gap-2 px-3 lg:px-4 py-2 rounded-lg font-heading font-medium transition-all duration-200 text-sm lg:text-base",
+                  moreItems.some(item => location.pathname === item.path)
+                    ? "bg-secondary text-secondary-foreground shadow-md"
+                    : "text-primary-foreground hover:bg-primary-foreground/10"
+                )}
+              >
+                <MoreHorizontal className="w-4 h-4 lg:w-5 lg:h-5" />
+                <span className="hidden lg:inline">More</span>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-card border-2 border-border shadow-xl" align="end">
+                {moreItems.map((item) => (
+                  <DropdownMenuItem key={item.path} asChild>
+                    <Link
+                      to={item.path}
+                      className="flex items-center gap-2 font-heading cursor-pointer"
+                    >
+                      <span>{item.emoji}</span>
+                      {item.name}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <div className="flex items-center gap-2 ml-2">
+              <GlobalSearch />
+              <LanguageToggle />
               <ThemeToggle />
             </div>
           </div>
 
           {/* Mobile nav */}
           <div className="flex md:hidden items-center gap-1">
-            {navItems.map((item) => {
+            {navItems.slice(0, 3).map((item) => {
               const Icon = item.icon;
               const isActive = location.pathname === item.path;
               return (
@@ -109,6 +170,8 @@ export function Navbar() {
               )}
             </Link>
 
+            <GlobalSearch />
+            <LanguageToggle />
             <ThemeToggle />
           </div>
         </div>
