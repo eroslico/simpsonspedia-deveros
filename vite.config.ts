@@ -9,7 +9,9 @@ export default defineConfig(({ mode }) => ({
     host: "::",
     port: 8080,
   },
-  plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
+  plugins: [react(), mode === "development" && componentTagger()].filter(
+    Boolean
+  ),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
@@ -21,32 +23,18 @@ export default defineConfig(({ mode }) => ({
         manualChunks: {
           // Core vendor chunks
           "vendor-react": ["react", "react-dom", "react-router-dom"],
-          "vendor-ui": ["@radix-ui/react-dialog", "@radix-ui/react-dropdown-menu", "@radix-ui/react-tooltip"],
+          "vendor-ui": [
+            "@radix-ui/react-dialog",
+            "@radix-ui/react-dropdown-menu",
+            "@radix-ui/react-tooltip",
+          ],
           "vendor-query": ["@tanstack/react-query"],
           // Feature chunks
-          "pages-games": [
-            "./src/pages/Trivia.tsx",
-            "./src/pages/MemoryGame.tsx",
-            "./src/pages/Quiz.tsx",
-            "./src/pages/Bingo.tsx",
-            "./src/pages/GuessEpisode.tsx",
-            "./src/pages/WhoSaidIt.tsx",
-            "./src/pages/Wordle.tsx",
-          ],
           "pages-tools": [
-            "./src/pages/MemeGenerator.tsx",
             "./src/pages/Compare.tsx",
-            "./src/pages/Soundboard.tsx",
-            "./src/pages/QuoteGenerator.tsx",
             "./src/pages/DailyChallenge.tsx",
           ],
-          "pages-data": [
-            "./src/pages/Stats.tsx",
-            "./src/pages/Timeline.tsx",
-            "./src/pages/FamilyTree.tsx",
-            "./src/pages/SpringfieldMap.tsx",
-            "./src/pages/CouchGags.tsx",
-          ],
+          "pages-data": ["./src/pages/Stats.tsx"],
         },
       },
     },
