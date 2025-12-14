@@ -8,10 +8,8 @@ import { CouchGag } from "@/components/CouchGag";
 import { OfflineIndicator } from "@/components/OfflineIndicator";
 import { KeyboardShortcuts, ShortcutHint } from "@/components/KeyboardShortcuts";
 import { NotificationProvider } from "@/components/Notifications";
-import { HomerChat } from "@/components/HomerChat";
-import { VoiceCommands, VoiceCommandsHelp } from "@/components/VoiceCommands";
 import { NavigationGestures } from "@/components/GestureHandler";
-import { SoundProvider, SoundToggle } from "@/components/SoundSystem";
+import { ScrollToTopOnRouteChange } from "@/components/ScrollToTopOnRouteChange";
 import Index from "./pages/Index";
 import Characters from "./pages/Characters";
 import Episodes from "./pages/Episodes";
@@ -19,7 +17,6 @@ import Locations from "./pages/Locations";
 import Favorites from "./pages/Favorites";
 import Stats from "./pages/Stats";
 import Compare from "./pages/Compare";
-import Profile from "./pages/Profile";
 import Predictions from "./pages/Predictions";
 import DailyChallenge from "./pages/DailyChallenge";
 import NotFound from "./pages/NotFound";
@@ -30,12 +27,12 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <SoundProvider>
-          <NotificationProvider>
-            <EasterEgg>
-              <Toaster />
-              <Sonner />
+        <NotificationProvider>
+          <EasterEgg>
+            <Toaster />
+            <Sonner />
             <BrowserRouter>
+              <ScrollToTopOnRouteChange />
               <KeyboardShortcuts />
               <ShortcutHint />
               <NavigationGestures />
@@ -47,24 +44,15 @@ const App = () => {
                 <Route path="/favorites" element={<Favorites />} />
                 <Route path="/stats" element={<Stats />} />
                 <Route path="/compare" element={<Compare />} />
-                <Route path="/profile" element={<Profile />} />
                 <Route path="/predictions" element={<Predictions />} />
                 <Route path="/daily" element={<DailyChallenge />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
-              <HomerChat />
-              <VoiceCommands />
-              <VoiceCommandsHelp />
             </BrowserRouter>
-              <CouchGag />
-              <OfflineIndicator />
-              {/* Sound toggle button */}
-              <div className="fixed bottom-4 left-4 z-50">
-                <SoundToggle />
-              </div>
-            </EasterEgg>
-          </NotificationProvider>
-        </SoundProvider>
+            <CouchGag />
+            <OfflineIndicator />
+          </EasterEgg>
+        </NotificationProvider>
       </TooltipProvider>
     </QueryClientProvider>
   );

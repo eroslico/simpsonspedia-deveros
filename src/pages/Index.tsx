@@ -12,7 +12,6 @@ import { TestimonialSection } from "@/components/TestimonialSection";
 import { InteractiveFooter } from "@/components/InteractiveFooter";
 import { ScrollReveal, ScrollCounter } from "@/components/ScrollAnimations";
 import { GlassCard } from "@/components/GlassCard";
-import { CursorEffects, ClickRipple } from "@/components/CursorEffects";
 import { UltraLoadingScreen } from "@/components/UltraLoadingScreen";
 import { ArrowRight, Heart, Sparkles, Zap, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -51,10 +50,6 @@ export default function Index() {
     <>
       {/* Ultra Loading Screen */}
       {isLoading && <UltraLoadingScreen onComplete={handleLoadingComplete} />}
-
-      {/* Cursor Effects */}
-      <CursorEffects enabled={!isLoading} />
-      <ClickRipple />
 
       <div className={cn(
         "min-h-screen bg-background transition-opacity duration-500",
@@ -220,14 +215,6 @@ export default function Index() {
                         <div className="text-sm text-muted-foreground">Characters</div>
                       </div>
                     </div>
-                    
-                    <Link
-                      to="/profile"
-                      className="mt-4 w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-primary text-primary-foreground font-heading font-bold hover:bg-primary/90 transition-colors"
-                    >
-                      View Full Profile
-                      <ArrowRight className="w-4 h-4" />
-                    </Link>
                   </GlassCard>
                 </ScrollReveal>
               </div>

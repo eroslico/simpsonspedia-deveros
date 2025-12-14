@@ -176,7 +176,7 @@ export default function Characters() {
             <SearchBar
               value={search}
               onChange={setSearch}
-              placeholder="Search character..."
+              placeholder="Search characters..."
             />
             
             <div className="flex gap-2">
@@ -239,7 +239,7 @@ export default function Characters() {
                     onClick={() => setStatusFilter("all")}
                     className="font-heading cursor-pointer"
                   >
-                    All Status
+                    All Statuses
                     {statusFilter === "all" && <Badge className="ml-auto bg-primary">✓</Badge>}
                   </DropdownMenuItem>
                   <DropdownMenuItem 

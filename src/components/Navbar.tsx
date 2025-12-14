@@ -3,7 +3,6 @@ import { Users, Tv, MapPin, Home, Heart, BarChart3, Brain, MoreHorizontal, User,
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "./ThemeToggle";
 import { GlobalSearch } from "./GlobalSearch";
-import { LanguageToggle } from "./LanguageToggle";
 import { useFavorites } from "@/hooks/useFavorites";
 import {
   DropdownMenu,
@@ -25,7 +24,6 @@ const moreItems = [
   { name: "Stats", path: "/stats", emoji: "📊" },
   { name: "Compare", path: "/compare", emoji: "⚖️" },
   { name: "Predictions", path: "/predictions", emoji: "🔮" },
-  { name: "Profile", path: "/profile", emoji: "👤" },
 ];
 
 export function Navbar() {
@@ -112,7 +110,6 @@ export function Navbar() {
 
             <div className="flex items-center gap-2 ml-2">
               <GlobalSearch />
-              <LanguageToggle />
               <ThemeToggle />
             </div>
           </div>
@@ -157,7 +154,6 @@ export function Navbar() {
             </Link>
 
             <GlobalSearch />
-            <LanguageToggle />
             <ThemeToggle />
           </div>
         </div>

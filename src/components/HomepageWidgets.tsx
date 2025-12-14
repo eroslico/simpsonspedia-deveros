@@ -213,16 +213,14 @@ export function QuickStatsWidget() {
   }
 
   return (
-    <Link
-      to="/profile"
-      className="block bg-gradient-to-br from-accent/20 to-primary/20 rounded-2xl p-4 border border-accent/30 hover:border-accent transition-colors group"
+    <div
+      className="block bg-gradient-to-br from-accent/20 to-primary/20 rounded-2xl p-4 border border-accent/30 transition-colors group"
     >
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <User className="w-5 h-5 text-accent" />
           <h3 className="font-heading font-bold text-foreground">Your Progress</h3>
         </div>
-        <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:translate-x-1 transition-transform" />
       </div>
 
       <div className="grid grid-cols-3 gap-2">
@@ -239,7 +237,7 @@ export function QuickStatsWidget() {
           <p className="text-xs text-muted-foreground font-body">Trivia</p>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }
 

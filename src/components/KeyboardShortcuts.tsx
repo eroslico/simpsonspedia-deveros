@@ -24,7 +24,6 @@ export function KeyboardShortcuts() {
     { keys: ["g", "l"], description: "Go to Locations", action: () => navigate("/locations") },
     { keys: ["g", "f"], description: "Go to Favorites", action: () => navigate("/favorites") },
     { keys: ["g", "t"], description: "Go to Trivia", action: () => navigate("/trivia") },
-    { keys: ["g", "p"], description: "Go to Profile", action: () => navigate("/profile") },
     { keys: ["/"], description: "Focus search", action: () => {
       const searchBtn = document.querySelector('[aria-label="Search"]') as HTMLButtonElement;
       searchBtn?.click();
