@@ -10,7 +10,7 @@
 [![Vite](https://img.shields.io/badge/Vite-7.2-646CFF?style=flat-square&logo=vite)](https://vitejs.dev/)
 [![PWA](https://img.shields.io/badge/PWA-Ready-5A0FC8?style=flat-square&logo=pwa)](https://web.dev/progressive-web-apps/)
 
-[Features](#features) &bull; [Tech Stack](#tech-stack) &bull; [Getting Started](#getting-started) &bull; [Project Structure](#project-structure)
+[Live Demo](https://simpsonspedia-deveros.vercel.app/) &bull; [Features](#features) &bull; [Tech Stack](#tech-stack) &bull; [Getting Started](#getting-started) &bull; [Project Structure](#project-structure)
 
 </div>
 
