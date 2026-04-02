@@ -10,7 +10,8 @@
       "Bash(curl -s \"https://thesimpsonsapi.com/api/characters?page=1\")",
       "Bash(python -c \"import sys,json; data=json.load\\(sys.stdin\\); genders=set\\(c.get\\(''''gender'''',''''NONE''''\\) for c in data[''''results'''']\\); print\\(genders\\); [print\\(c[''''name''''], repr\\(c.get\\(''''gender''''\\)\\)\\) for c in data[''''results''''][:15]]\")",
       "Bash(curl -s \"https://thesimpsonsapi.com/api/characters?page=2\")",
-      "Bash(python -c \"import sys,json; data=json.load\\(sys.stdin\\); [print\\(c[''''name''''], repr\\(c.get\\(''''gender''''\\)\\)\\) for c in data[''''results''''][:15]]\")"
+      "Bash(python -c \"import sys,json; data=json.load\\(sys.stdin\\); [print\\(c[''''name''''], repr\\(c.get\\(''''gender''''\\)\\)\\) for c in data[''''results''''][:15]]\")",
+      "Bash(git config:*)"
     ]
   }
 }
