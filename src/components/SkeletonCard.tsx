@@ -11,7 +11,7 @@ export function SkeletonCard({ type = "character", className }: SkeletonCardProp
   return (
     <div
       className={cn(
-        "bg-card rounded-2xl overflow-hidden border-4 border-border",
+        "bg-card rounded-lg overflow-hidden border border-border",
         "animate-pulse",
         className
       )}

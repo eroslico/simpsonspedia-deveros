@@ -1,34 +1,33 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 import { EpisodeCard } from "@/components/EpisodeCard";
-import { SearchBar } from "@/components/SearchBar";
-import { PageHeader } from "@/components/PageHeader";
 import { EpisodeModal } from "@/components/EpisodeModal";
-import { PageTransition } from "@/components/PageTransition";
 import { ErrorState } from "@/components/ErrorState";
 import { EmptyState } from "@/components/EmptyState";
 import { FavoriteButton } from "@/components/FavoriteButton";
-import { ScrollToTop } from "@/components/ScrollToTop";
 import { SkeletonGrid } from "@/components/SkeletonCard";
+import { ScrollToTop } from "@/components/ScrollToTop";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 import { useFavorites } from "@/hooks/useFavorites";
-import { Loader2, ChevronDown, Filter } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
+import { Input } from "@/components/ui/input";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { ChevronDown } from "lucide-react";
 
 interface Episode {
   id: number;
   name: string;
   season: number;
-  episode: number;
-  airDate?: string;
+  episode_number: number;
+  airdate?: string;
   synopsis?: string;
   image_path?: string;
   directed_by?: string;
@@ -47,6 +46,7 @@ export default function Episodes() {
   const [episodes, setEpisodes] = useState<Episode[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
+  const [loadingAll, setLoadingAll] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState("");
   const [selectedEpisode, setSelectedEpisode] = useState<Episode | null>(null);
@@ -54,8 +54,11 @@ export default function Episodes() {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [totalCount, setTotalCount] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const [allLoaded, setAllLoaded] = useState(false);
 
   const { isFavorite, toggleFavorite } = useFavorites();
+  const loadingAllRef = useRef(false);
 
   const fetchEpisodes = useCallback(async (pageNum: number, isInitial = false) => {
     try {
@@ -67,73 +70,101 @@ export default function Episodes() {
       }
 
       const res = await fetch(`https://thesimpsonsapi.com/api/episodes?page=${pageNum}`);
-      
-      if (!res.ok) {
-        throw new Error("Failed to fetch episodes");
-      }
-      
+      if (!res.ok) throw new Error("Failed to fetch episodes");
       const data: ApiResponse = await res.json();
 
       if (isInitial) {
         setEpisodes(data.results || []);
         setTotalCount(data.count);
+        setTotalPages(data.pages);
       } else {
-        setEpisodes(prev => [...prev, ...(data.results || [])]);
+        setEpisodes((prev) => [...prev, ...(data.results || [])]);
       }
-
       setHasMore(data.next !== null);
-    } catch (err) {
-      console.error("Error fetching episodes:", err);
-      setError("Failed to load episodes. Please try again.");
+    } catch {
+      setError("Failed to load episodes.");
     } finally {
       setLoading(false);
       setLoadingMore(false);
     }
   }, []);
 
+  const fetchAllEpisodes = useCallback(async () => {
+    if (loadingAllRef.current || allLoaded) return;
+    loadingAllRef.current = true;
+    setLoadingAll(true);
+
+    try {
+      const currentPage = page;
+      const remaining = Array.from(
+        { length: totalPages - currentPage },
+        (_, i) => currentPage + 1 + i
+      );
+
+      for (let i = 0; i < remaining.length; i += 5) {
+        const batch = remaining.slice(i, i + 5);
+        const responses = await Promise.all(
+          batch.map((p) =>
+            fetch(`https://thesimpsonsapi.com/api/episodes?page=${p}`).then((r) => r.json())
+          )
+        );
+        const newEps = responses.flatMap((d: ApiResponse) => d.results || []);
+        setEpisodes((prev) => [...prev, ...newEps]);
+      }
+
+      setAllLoaded(true);
+      setHasMore(false);
+    } catch {
+      // partial data still usable
+    } finally {
+      setLoadingAll(false);
+      loadingAllRef.current = false;
+    }
+  }, [page, totalPages, allLoaded]);
+
   useEffect(() => {
     fetchEpisodes(1, true);
   }, [fetchEpisodes]);
 
+  // When a season filter is activated, load all episodes
+  useEffect(() => {
+    if (selectedSeason !== null && !allLoaded && totalPages > 0) {
+      fetchAllEpisodes();
+    }
+  }, [selectedSeason, allLoaded, totalPages, fetchAllEpisodes]);
+
   const loadMore = useCallback(() => {
-    if (!loadingMore && hasMore) {
+    if (!loadingMore && hasMore && !loadingAll) {
       const nextPage = page + 1;
       setPage(nextPage);
       fetchEpisodes(nextPage);
     }
-  }, [page, loadingMore, hasMore, fetchEpisodes]);
+  }, [page, loadingMore, hasMore, loadingAll, fetchEpisodes]);
 
   const { loadMoreRef } = useInfiniteScroll(loadMore, hasMore, loadingMore);
 
-  // All available seasons (The Simpsons has 36 seasons)
-  const allSeasons = useMemo(() => {
-    return Array.from({ length: 36 }, (_, i) => i + 1);
-  }, []);
+  const availableSeasons = useMemo(() => {
+    const seasons = new Set(episodes.map((ep) => ep.season));
+    return Array.from(seasons).sort((a, b) => a - b);
+  }, [episodes]);
 
-  // Filter episodes by search and season
   const filteredEpisodes = useMemo(() => {
     let filtered = episodes;
-    
     if (selectedSeason !== null) {
-      filtered = filtered.filter(ep => ep.season === selectedSeason);
+      filtered = filtered.filter((ep) => ep.season === selectedSeason);
     }
-    
     if (search) {
-      filtered = filtered.filter(ep =>
+      filtered = filtered.filter((ep) =>
         ep.name.toLowerCase().includes(search.toLowerCase())
       );
     }
-    
     return filtered;
   }, [episodes, selectedSeason, search]);
 
-  // Group episodes by season
   const episodesBySeason = useMemo(() => {
     const grouped: Record<number, Episode[]> = {};
-    filteredEpisodes.forEach(ep => {
-      if (!grouped[ep.season]) {
-        grouped[ep.season] = [];
-      }
+    filteredEpisodes.forEach((ep) => {
+      if (!grouped[ep.season]) grouped[ep.season] = [];
       grouped[ep.season].push(ep);
     });
     return grouped;
@@ -149,7 +180,7 @@ export default function Episodes() {
       id: episode.id,
       type: "episode",
       name: episode.name,
-      image: episode.image_path 
+      image: episode.image_path
         ? `https://cdn.thesimpsonsapi.com/500${episode.image_path}`
         : undefined,
     });
@@ -157,182 +188,148 @@ export default function Episodes() {
 
   const handleRetry = () => {
     setPage(1);
+    setAllLoaded(false);
     fetchEpisodes(1, true);
   };
+
+  const isFiltering = search || selectedSeason !== null;
 
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <PageTransition>
-        <main className="container mx-auto px-4 py-8">
-          <PageHeader
-            title="Episodes"
-            subtitle="Explore 750+ episodes across 35 seasons of television history"
-            icon="📺"
-          />
-
-          {/* Filters row */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-            <SearchBar
-              value={search}
-              onChange={setSearch}
-              placeholder="Search episode..."
-            />
-            
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button 
-                  variant="outline" 
-                  className="h-12 px-4 rounded-full border-2 border-border bg-card hover:bg-muted font-heading gap-2 min-w-[180px]"
-                >
-                  <Filter className="w-4 h-4" />
-                  {selectedSeason !== null ? `Season ${selectedSeason}` : "All seasons"}
-                  <ChevronDown className="w-4 h-4 ml-auto" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent 
-                className="w-56 bg-card border-2 border-border shadow-xl z-50"
-                align="center"
-              >
-                <ScrollArea className="h-72">
-                  <DropdownMenuItem 
-                    onClick={() => setSelectedSeason(null)}
-                    className="font-heading cursor-pointer hover:bg-muted focus:bg-muted"
-                  >
-                    <span className="flex-1">All seasons</span>
-                    {selectedSeason === null && (
-                      <Badge className="bg-primary text-primary-foreground">✓</Badge>
-                    )}
-                  </DropdownMenuItem>
-                  {allSeasons.map(season => (
-                    <DropdownMenuItem 
-                      key={season}
-                      onClick={() => setSelectedSeason(season)}
-                      className="font-heading cursor-pointer hover:bg-muted focus:bg-muted"
-                    >
-                      <span className="flex-1">Season {season}</span>
-                      {selectedSeason === season && (
-                        <Badge className="bg-primary text-primary-foreground">✓</Badge>
-                      )}
-                    </DropdownMenuItem>
-                  ))}
-                </ScrollArea>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-
-          {/* Error State */}
-          {error && !loading ? (
-            <ErrorState
-              title="Failed to load episodes"
-              message={error}
-              onRetry={handleRetry}
-            />
-          ) : loading ? (
-            <SkeletonGrid count={12} type="episode" />
-          ) : (
-            <>
-              <p className="text-center text-muted-foreground mb-6 font-body">
-                {search || selectedSeason !== null
-                  ? `Showing ${filteredEpisodes.length} episodes`
-                  : `Showing ${episodes.length} of ${totalCount} episodes`
-                }
+      <main className="container mx-auto px-4 py-8">
+        <div className="sticky top-14 z-40 bg-background/80 backdrop-blur-md -mx-4 px-4 py-4 border-b border-border mb-6">
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <p className="text-xs font-mono uppercase tracking-wider text-muted-foreground">
+                {isFiltering
+                  ? `${filteredEpisodes.length} results`
+                  : `${episodes.length} of ${totalCount}`}
+                {loadingAll && " · loading all..."}
               </p>
+              <h1 className="text-xl font-heading text-foreground">Episodes</h1>
+            </div>
+            <div className="flex items-center gap-3">
+              <Input
+                type="text"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search..."
+                className="h-8 w-40 md:w-56 text-sm border-border"
+              />
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" size="sm" className="h-8 text-xs gap-1">
+                    {selectedSeason !== null ? `Season ${selectedSeason}` : "All seasons"}
+                    <ChevronDown className="w-3 h-3" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-40">
+                  <ScrollArea className="h-64">
+                    <DropdownMenuItem onClick={() => setSelectedSeason(null)}>
+                      All seasons
+                    </DropdownMenuItem>
+                    {Array.from({ length: 36 }, (_, i) => i + 1).map((season) => (
+                      <DropdownMenuItem
+                        key={season}
+                        onClick={() => setSelectedSeason(season)}
+                      >
+                        Season {season}
+                      </DropdownMenuItem>
+                    ))}
+                  </ScrollArea>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          </div>
+        </div>
 
-              {filteredEpisodes.length === 0 ? (
-                <EmptyState
-                  title="No episodes found"
-                  message="Try another search or season"
-                  icon="🔍"
-                />
-              ) : (
-                /* Episodes grouped by season */
-                <div className="space-y-12">
-                  {sortedSeasons.map(season => (
-                    <section key={season} className="animate-bounce-in">
-                      {/* Season header */}
-                      <div className="flex items-center gap-4 mb-6">
-                        <div className="flex items-center gap-3">
-                          <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center shadow-lg">
-                            <span className="text-xl font-heading font-bold text-primary-foreground">
-                              {season}
-                            </span>
+        {error && !loading ? (
+          <ErrorState message={error} onRetry={handleRetry} />
+        ) : loading ? (
+          <SkeletonGrid count={12} type="episode" />
+        ) : filteredEpisodes.length === 0 && !loadingAll ? (
+          <EmptyState title="No episodes found" message="Try another search or season." />
+        ) : (
+          <>
+            <div className="space-y-10">
+              {sortedSeasons.map((season) => (
+                <section key={season}>
+                  <div className="flex items-baseline gap-3 mb-2">
+                    <span className="w-1 h-5 bg-primary rounded-full shrink-0" />
+                    <h2 className="text-xl font-heading text-foreground">
+                      Season {season}
+                    </h2>
+                    <span className="text-xs font-mono text-muted-foreground">
+                      {episodesBySeason[season].length} ep.
+                    </span>
+                  </div>
+
+                  <div className="space-y-0">
+                    {episodesBySeason[season]
+                      .sort((a, b) => a.episode_number - b.episode_number)
+                      .map((episode, index) => (
+                        <div
+                          key={`${episode.id}-${index}`}
+                          className="relative group flex items-center hover:bg-muted/50 rounded-sm transition-colors"
+                        >
+                          <div className="flex-1">
+                            <EpisodeCard
+                              episode={{
+                                id: episode.id,
+                                name: episode.name,
+                                season: episode.season,
+                                episode: episode.episode_number,
+                                airDate: episode.airdate || undefined,
+                                image: episode.image_path
+                                  ? `https://cdn.thesimpsonsapi.com/500${episode.image_path}`
+                                  : undefined,
+                              }}
+                              onClick={() => setSelectedEpisode(episode)}
+                            />
                           </div>
-                          <div>
-                            <h2 className="text-2xl font-heading font-bold text-foreground">
-                              Season {season}
-                            </h2>
-                            <p className="text-sm text-muted-foreground font-body">
-                              {episodesBySeason[season].length} episodes
-                            </p>
-                          </div>
+                          <FavoriteButton
+                            isFavorite={isFavorite(episode.id, "episode")}
+                            onClick={(e) => handleFavoriteClick(e, episode)}
+                            className="opacity-0 group-hover:opacity-100 transition-opacity shrink-0"
+                          />
                         </div>
-                        <div className="flex-1 h-1 bg-gradient-to-r from-primary/50 to-transparent rounded-full" />
-                      </div>
+                      ))}
+                  </div>
+                </section>
+              ))}
+            </div>
 
-                      {/* Episodes grid */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                        {episodesBySeason[season]
-                          .sort((a, b) => a.episode - b.episode)
-                          .map((episode, index) => (
-                            <div
-                              key={`${episode.id}-${index}`}
-                              className="relative animate-bounce-in"
-                              style={{ animationDelay: `${(index % 8) * 50}ms` }}
-                            >
-                              <EpisodeCard 
-                                episode={{
-                                  ...episode,
-                                  image: episode.image_path 
-                                    ? `https://cdn.thesimpsonsapi.com/500${episode.image_path}`
-                                    : undefined
-                                }} 
-                                onClick={() => setSelectedEpisode(episode)}
-                              />
-                              <FavoriteButton
-                                isFavorite={isFavorite(episode.id, "episode")}
-                                onClick={(e) => handleFavoriteClick(e, episode)}
-                                size="sm"
-                                className="absolute top-2 right-2 z-10"
-                              />
-                            </div>
-                          ))}
-                      </div>
-                    </section>
-                  ))}
-                </div>
-              )}
+            {!isFiltering && hasMore && !loadingAll && (
+              <div ref={loadMoreRef} className="flex justify-center py-8">
+                {loadingMore && (
+                  <Loader2 className="w-5 h-5 text-muted-foreground animate-spin" />
+                )}
+              </div>
+            )}
 
-              {/* Infinite scroll trigger */}
-              {!search && selectedSeason === null && hasMore && (
-                <div ref={loadMoreRef} className="flex justify-center py-8">
-                  {loadingMore && (
-                    <div className="flex items-center gap-3 bg-secondary/10 rounded-full px-6 py-3">
-                      <Loader2 className="w-5 h-5 text-secondary animate-spin" />
-                      <span className="font-heading text-foreground">Loading more episodes...</span>
-                    </div>
-                  )}
-                </div>
-              )}
+            {loadingAll && (
+              <div className="flex items-center justify-center gap-2 py-8">
+                <Loader2 className="w-4 h-4 text-muted-foreground animate-spin" />
+                <span className="text-xs text-muted-foreground">Loading all episodes...</span>
+              </div>
+            )}
 
-              {!hasMore && !search && selectedSeason === null && episodes.length > 0 && (
-                <div className="text-center py-8">
-                  <span className="text-4xl mb-2 block">🎬</span>
-                  <p className="text-muted-foreground font-body">
-                    You've seen all {totalCount} available episodes!
-                  </p>
-                </div>
-              )}
-            </>
-          )}
+            {!hasMore && !isFiltering && allLoaded && (
+              <p className="text-center text-xs text-muted-foreground py-8">
+                All {totalCount} episodes loaded.
+              </p>
+            )}
+          </>
+        )}
 
-          <EpisodeModal 
-            episode={selectedEpisode} 
-            onClose={() => setSelectedEpisode(null)} 
-          />
-        </main>
-      </PageTransition>
+        <EpisodeModal
+          episode={selectedEpisode}
+          onClose={() => setSelectedEpisode(null)}
+        />
+      </main>
       <ScrollToTop />
+      <Footer />
     </div>
   );
 }

@@ -21,7 +21,6 @@ export default defineConfig(({ mode }) => ({
     rollupOptions: {
       output: {
         manualChunks: {
-          // Core vendor chunks
           "vendor-react": ["react", "react-dom", "react-router-dom"],
           "vendor-ui": [
             "@radix-ui/react-dialog",
@@ -29,12 +28,6 @@ export default defineConfig(({ mode }) => ({
             "@radix-ui/react-tooltip",
           ],
           "vendor-query": ["@tanstack/react-query"],
-          // Feature chunks
-          "pages-tools": [
-            "./src/pages/Compare.tsx",
-            "./src/pages/DailyChallenge.tsx",
-          ],
-          "pages-data": ["./src/pages/Stats.tsx"],
         },
       },
     },

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Comic+Neue:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,118 +6,83 @@
 
 @layer base {
   :root {
-    /* Simpsons Yellow Theme */
-    --background: 48 100% 96%;
-    --foreground: 30 50% 15%;
+    --background: 43 30% 96%;
+    --foreground: 30 10% 10%;
 
-    --card: 48 100% 98%;
-    --card-foreground: 30 50% 15%;
+    --card: 45 25% 99%;
+    --card-foreground: 30 10% 10%;
 
-    --popover: 48 100% 98%;
-    --popover-foreground: 30 50% 15%;
+    --popover: 45 25% 99%;
+    --popover-foreground: 30 10% 10%;
 
-    /* Simpsons iconic yellow */
-    --primary: 51 99% 55%;
-    --primary-foreground: 30 50% 15%;
+    --primary: 47 95% 50%;
+    --primary-foreground: 30 10% 10%;
 
-    /* Springfield sky blue */
-    --secondary: 197 90% 65%;
-    --secondary-foreground: 210 80% 15%;
+    --secondary: 42 18% 91%;
+    --secondary-foreground: 30 10% 10%;
 
-    --muted: 45 30% 90%;
-    --muted-foreground: 30 20% 40%;
+    --muted: 42 18% 91%;
+    --muted-foreground: 30 5% 38%;
 
-    /* Donut pink accent */
-    --accent: 330 85% 70%;
-    --accent-foreground: 330 80% 15%;
+    --accent: 42 18% 91%;
+    --accent-foreground: 30 10% 10%;
 
-    /* Duff beer brown for destructive */
-    --destructive: 25 80% 45%;
-    --destructive-foreground: 48 100% 96%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 45 40% 80%;
-    --input: 45 40% 85%;
-    --ring: 51 99% 55%;
+    --border: 42 15% 84%;
+    --input: 42 15% 84%;
+    --ring: 47 95% 50%;
 
-    --radius: 1rem;
+    --radius: 0.375rem;
 
-    /* Custom Simpsons colors */
-    --simpsons-yellow: 51 99% 55%;
-    --simpsons-blue: 197 90% 65%;
-    --simpsons-pink: 330 85% 70%;
-    --simpsons-orange: 25 95% 55%;
-    --simpsons-green: 120 60% 40%;
-    --simpsons-brown: 30 50% 35%;
-
-    /* Gradients */
-    --gradient-sky: linear-gradient(180deg, hsl(197 90% 75%) 0%, hsl(197 90% 55%) 100%);
-    --gradient-sunset: linear-gradient(180deg, hsl(25 95% 65%) 0%, hsl(51 99% 55%) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(48 100% 98%) 0%, hsl(48 80% 92%) 100%);
-
-    --sidebar-background: 48 100% 96%;
-    --sidebar-foreground: 30 50% 15%;
-    --sidebar-primary: 51 99% 55%;
-    --sidebar-primary-foreground: 30 50% 15%;
-    --sidebar-accent: 197 90% 65%;
-    --sidebar-accent-foreground: 210 80% 15%;
-    --sidebar-border: 45 40% 80%;
-    --sidebar-ring: 51 99% 55%;
+    --sidebar-background: 43 30% 96%;
+    --sidebar-foreground: 30 10% 10%;
+    --sidebar-primary: 47 95% 50%;
+    --sidebar-primary-foreground: 30 10% 10%;
+    --sidebar-accent: 42 18% 91%;
+    --sidebar-accent-foreground: 30 10% 10%;
+    --sidebar-border: 42 15% 84%;
+    --sidebar-ring: 47 95% 50%;
   }
 
   .dark {
-    /* Springfield Night Theme */
-    --background: 230 25% 8%;
-    --foreground: 45 20% 95%;
+    --background: 0 0% 6%;
+    --foreground: 240 6% 90%;
 
-    --card: 230 20% 12%;
-    --card-foreground: 45 20% 95%;
+    --card: 0 0% 10%;
+    --card-foreground: 240 6% 90%;
 
-    --popover: 230 20% 14%;
-    --popover-foreground: 45 20% 95%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 240 6% 90%;
 
-    /* Simpsons yellow stays vibrant in dark mode */
-    --primary: 51 95% 50%;
-    --primary-foreground: 230 25% 8%;
+    --primary: 47 95% 53%;
+    --primary-foreground: 0 0% 6%;
 
-    /* Moe's Tavern blue-purple */
-    --secondary: 260 50% 55%;
-    --secondary-foreground: 260 20% 95%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 240 6% 90%;
 
-    --muted: 230 15% 18%;
-    --muted-foreground: 230 10% 60%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 240 4% 55%;
 
-    /* Neon pink accent for dark mode */
-    --accent: 330 80% 60%;
-    --accent-foreground: 330 20% 10%;
+    --accent: 0 0% 15%;
+    --accent-foreground: 240 6% 90%;
 
-    --destructive: 0 70% 50%;
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 230 15% 22%;
-    --input: 230 15% 20%;
-    --ring: 51 95% 50%;
+    --border: 0 0% 16%;
+    --input: 0 0% 16%;
+    --ring: 47 95% 53%;
 
-    /* Dark mode gradients */
-    --gradient-sky: linear-gradient(180deg, hsl(260 40% 25%) 0%, hsl(230 25% 12%) 100%);
-    --gradient-sunset: linear-gradient(180deg, hsl(280 50% 30%) 0%, hsl(230 25% 8%) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(230 20% 14%) 0%, hsl(230 20% 10%) 100%);
-
-    --sidebar-background: 230 25% 8%;
-    --sidebar-foreground: 45 20% 95%;
-    --sidebar-primary: 51 95% 50%;
-    --sidebar-primary-foreground: 230 25% 8%;
-    --sidebar-accent: 260 50% 55%;
-    --sidebar-accent-foreground: 260 20% 95%;
-    --sidebar-border: 230 15% 22%;
-    --sidebar-ring: 51 95% 50%;
-
-    /* Dark mode custom colors */
-    --simpsons-yellow: 51 95% 50%;
-    --simpsons-blue: 260 50% 55%;
-    --simpsons-pink: 330 80% 60%;
-    --simpsons-orange: 25 90% 55%;
-    --simpsons-green: 140 60% 45%;
-    --simpsons-brown: 30 40% 40%;
+    --sidebar-background: 0 0% 6%;
+    --sidebar-foreground: 240 6% 90%;
+    --sidebar-primary: 47 95% 53%;
+    --sidebar-primary-foreground: 0 0% 6%;
+    --sidebar-accent: 0 0% 15%;
+    --sidebar-accent-foreground: 240 6% 90%;
+    --sidebar-border: 0 0% 16%;
+    --sidebar-ring: 47 95% 53%;
   }
 }
 
@@ -131,35 +96,14 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-heading font-bold;
+    @apply font-heading tracking-tight;
   }
 }
 
 @layer utilities {
-  .text-shadow-sm {
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-  }
-  
-  .text-shadow-md {
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  }
-
-  .card-hover {
-    @apply transition-all duration-300 hover:scale-105 hover:shadow-xl;
-  }
-
-  .simpsons-border {
-    @apply border-4 border-foreground/20 rounded-2xl;
-  }
-
-  /* Shimmer animation for skeletons */
   @keyframes shimmer {
-    0% {
-      background-position: -200% 0;
-    }
-    100% {
-      background-position: 200% 0;
-    }
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
   }
 
   .animate-shimmer {
@@ -173,352 +117,45 @@
     animation: shimmer 1.5s infinite;
   }
 
-  /* Slide up animation for mobile modals */
-  @keyframes slide-up {
-    from {
-      transform: translateY(100%);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
+  /* Yellow highlight — editorial accent */
+  .highlight {
+    background-image: linear-gradient(
+      transparent 60%,
+      hsl(var(--primary) / 0.3) 60%
+    );
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
   }
 
-  @keyframes slide-down {
-    from {
-      transform: translateY(0);
-      opacity: 1;
-    }
-    to {
-      transform: translateY(100%);
-      opacity: 0;
-    }
-  }
-
-  .animate-slide-up {
-    animation: slide-up 0.3s ease-out;
-  }
-
-  .animate-slide-down {
-    animation: slide-down 0.2s ease-in;
-  }
-
-  /* Confetti animation */
-  @keyframes confetti-fall {
-    0% {
-      transform: translateY(-100vh) rotate(0deg);
-      opacity: 1;
-    }
-    100% {
-      transform: translateY(100vh) rotate(720deg);
-      opacity: 0;
-    }
-  }
-
-  .animate-confetti {
-    animation: confetti-fall 3s ease-in-out forwards;
-  }
-
-  /* Slow spin for loading donut */
-  @keyframes spin-slow {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-
-  .animate-spin-slow {
-    animation: spin-slow 3s linear infinite;
-  }
-
-  /* Pulse glow effect */
-  @keyframes pulse-glow {
-    0%, 100% {
-      box-shadow: 0 0 5px hsl(var(--primary)), 0 0 10px hsl(var(--primary) / 0.5);
-    }
-    50% {
-      box-shadow: 0 0 20px hsl(var(--primary)), 0 0 40px hsl(var(--primary) / 0.5);
-    }
-  }
-
-  .animate-pulse-glow {
-    animation: pulse-glow 2s ease-in-out infinite;
-  }
-
-  /* Float animation */
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
-  }
-
-  .animate-float {
-    animation: float 3s ease-in-out infinite;
-  }
-
-  /* Shake animation */
-  @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-    20%, 40%, 60%, 80% { transform: translateX(5px); }
-  }
-
-  .animate-shake {
-    animation: shake 0.5s ease-in-out;
-  }
-
-  /* Rainbow text */
-  @keyframes rainbow {
-    0% { color: #ff0000; }
-    17% { color: #ff8000; }
-    33% { color: #ffff00; }
-    50% { color: #00ff00; }
-    67% { color: #0080ff; }
-    83% { color: #8000ff; }
-    100% { color: #ff0000; }
-  }
-
-  .animate-rainbow {
-    animation: rainbow 3s linear infinite;
-  }
-
-  /* Typewriter effect */
-  @keyframes typewriter {
-    from { width: 0; }
-    to { width: 100%; }
-  }
-
-  .animate-typewriter {
-    overflow: hidden;
-    white-space: nowrap;
-    animation: typewriter 2s steps(40) forwards;
-  }
-
-  /* Gradient shift */
-  @keyframes gradient-shift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-
-  .animate-gradient {
-    background-size: 200% 200%;
-    animation: gradient-shift 5s ease infinite;
-  }
-
-  /* Custom scrollbar */
   ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
   }
 
   ::-webkit-scrollbar-track {
-    background: hsl(var(--muted));
-    border-radius: 5px;
+    background: transparent;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: hsl(var(--primary));
-    border-radius: 5px;
+    background: hsl(var(--border));
+    border-radius: 4px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--primary) / 0.8);
+    background: hsl(var(--muted-foreground) / 0.3);
   }
 
-  /* Selection color */
   ::selection {
     background: hsl(var(--primary) / 0.3);
     color: hsl(var(--foreground));
   }
 
-  /* Focus visible styles for accessibility */
   :focus-visible {
     outline: 2px solid hsl(var(--primary));
     outline-offset: 2px;
   }
 
-  /* 3D Transform utilities */
-  .perspective-1000 {
-    perspective: 1000px;
-  }
-
-  .transform-3d {
-    transform-style: preserve-3d;
-  }
-
-  /* Glassmorphism */
-  .glass {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-  }
-
-  .dark .glass {
-    background: rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  /* Neon glow */
-  .neon-glow {
-    text-shadow: 
-      0 0 5px hsl(var(--primary)),
-      0 0 10px hsl(var(--primary)),
-      0 0 20px hsl(var(--primary)),
-      0 0 40px hsl(var(--primary));
-  }
-
-  /* Noise texture */
-  .bg-noise {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  }
-
-  /* Animated border */
-  @keyframes border-dance {
-    0%, 100% { border-color: hsl(var(--primary)); }
-    25% { border-color: hsl(var(--secondary)); }
-    50% { border-color: hsl(var(--accent)); }
-    75% { border-color: hsl(var(--simpsons-orange)); }
-  }
-
-  .animate-border {
-    animation: border-dance 4s ease-in-out infinite;
-  }
-
-  /* Morphing blob */
-  @keyframes morph {
-    0%, 100% {
-      border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-    }
-    50% {
-      border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
-    }
-  }
-
-  .animate-morph {
-    animation: morph 8s ease-in-out infinite;
-  }
-
-  /* Text reveal */
-  @keyframes text-reveal {
-    from {
-      clip-path: inset(0 100% 0 0);
-    }
-    to {
-      clip-path: inset(0 0 0 0);
-    }
-  }
-
-  .animate-text-reveal {
-    animation: text-reveal 1s ease-out forwards;
-  }
-
-  /* Bounce in */
-  @keyframes bounce-in {
-    0% {
-      opacity: 0;
-      transform: scale(0.3);
-    }
-    50% {
-      opacity: 1;
-      transform: scale(1.05);
-    }
-    70% {
-      transform: scale(0.9);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
-
-  .animate-bounce-in {
-    animation: bounce-in 0.6s ease-out forwards;
-  }
-
-  /* Wiggle */
-  @keyframes wiggle {
-    0%, 100% { transform: rotate(-3deg); }
-    50% { transform: rotate(3deg); }
-  }
-
-  .animate-wiggle {
-    animation: wiggle 0.3s ease-in-out;
-  }
-
-  .hover\:animate-wiggle:hover {
-    animation: wiggle 0.3s ease-in-out;
-  }
-
-  /* Slide in from different directions */
-  @keyframes slide-in-left {
-    from {
-      opacity: 0;
-      transform: translateX(-100px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes slide-in-right {
-    from {
-      opacity: 0;
-      transform: translateX(100px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  .animate-slide-in-left {
-    animation: slide-in-left 0.5s ease-out forwards;
-  }
-
-  .animate-slide-in-right {
-    animation: slide-in-right 0.5s ease-out forwards;
-  }
-
-  /* Glow pulse for buttons */
-  @keyframes glow-pulse {
-    0%, 100% {
-      box-shadow: 0 0 5px hsl(var(--primary) / 0.5);
-    }
-    50% {
-      box-shadow: 0 0 20px hsl(var(--primary) / 0.8), 0 0 30px hsl(var(--primary) / 0.4);
-    }
-  }
-
-  .animate-glow-pulse {
-    animation: glow-pulse 2s ease-in-out infinite;
-  }
-
-  /* Smooth page transitions */
-  .page-transition-enter {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  .page-transition-enter-active {
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 300ms, transform 300ms;
-  }
-
-  .page-transition-exit {
-    opacity: 1;
-  }
-
-  .page-transition-exit-active {
-    opacity: 0;
-    transition: opacity 300ms;
+  .dark img:not([data-no-dim]) {
+    filter: brightness(0.92);
   }
 }

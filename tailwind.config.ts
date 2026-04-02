@@ -14,8 +14,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        heading: ["Fredoka", "Comic Neue", "cursive"],
-        body: ["Comic Neue", "Fredoka", "sans-serif"],
+        heading: ["Instrument Serif", "Georgia", "serif"],
+        body: ["Inter", "system-ui", "sans-serif"],
+        mono: ["JetBrains Mono", "monospace"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -51,14 +52,6 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        simpsons: {
-          yellow: "hsl(var(--simpsons-yellow))",
-          blue: "hsl(var(--simpsons-blue))",
-          pink: "hsl(var(--simpsons-pink))",
-          orange: "hsl(var(--simpsons-orange))",
-          green: "hsl(var(--simpsons-green))",
-          brown: "hsl(var(--simpsons-brown))",
-        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -84,32 +77,10 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        "bounce-in": {
-          "0%": { transform: "scale(0.3)", opacity: "0" },
-          "50%": { transform: "scale(1.05)" },
-          "70%": { transform: "scale(0.9)" },
-          "100%": { transform: "scale(1)", opacity: "1" },
-        },
-        wiggle: {
-          "0%, 100%": { transform: "rotate(-3deg)" },
-          "50%": { transform: "rotate(3deg)" },
-        },
-        float: {
-          "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-10px)" },
-        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "bounce-in": "bounce-in 0.5s ease-out",
-        wiggle: "wiggle 0.5s ease-in-out infinite",
-        float: "float 3s ease-in-out infinite",
-      },
-      backgroundImage: {
-        "sky-gradient": "var(--gradient-sky)",
-        "sunset-gradient": "var(--gradient-sunset)",
-        "card-gradient": "var(--gradient-card)",
       },
     },
   },
